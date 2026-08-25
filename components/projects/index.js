@@ -108,6 +108,26 @@ export const Projects = forwardRef((props, ref) => {
       </Subtitle>
       <ProjectGrid>
         <ProjectCard
+          title="Coffee & Contracts"
+          description="A marketing platform for real estate agents, with AI-generated captions, Instagram analytics, and a content-strategy calendar."
+          link={process.env.NEXT_PUBLIC_COFFEE_CONTRACTS_URL}
+          imgSrc={"/images/c-c-logo-stacked-black.svg"}
+          thumbBg="#FEFAE0"
+          skills={[
+            "Next.js",
+            "React",
+            "Django",
+            "PostgreSQL",
+            "Claude AI",
+            "Stripe",
+            "Instagram API",
+          ]}
+          stats={[
+            { num: "10K+", label: "Agents" },
+            { num: "AI", label: "Captions" },
+          ]}
+        />
+        <ProjectCard
           title="CareMobi"
           description="A platform that connects patients, families, and healthcare professionals to make managing care easier and more human."
           link={process.env.NEXT_PUBLIC_CAREMOBI_URL}
@@ -130,15 +150,44 @@ export const Projects = forwardRef((props, ref) => {
           ]}
         />
         <ProjectCard
-          title="Wisdumb"
-          description="A motivational quote generator that creates extremely insightful and wise quotes... or does it?"
-          link={process.env.NEXT_PUBLIC_WISDUMB_URL}
-          imgSrc={"/images/wisdumb.png"}
-          skills={["React Native", "OpenAI API", "Expo", "Django"]}
-          stats={[
-            { num: "∞", label: "Wisdom" },
-            { num: "0", label: "Sense Made" },
+          title="Six"
+          description="A social recommendation platform built on lists of exactly six favorites — restaurants, places, products — shared privately, on a public profile, or to a map-based discover feed."
+          link={process.env.NEXT_PUBLIC_SIX_URL}
+          imgSrc={"/images/six.png"}
+          skills={[
+            "React Native",
+            "Next.js",
+            "Django Ninja",
+            "React",
+            "Expo",
+            "PostgreSQL",
+            "PostGIS",
+            "Celery",
+            "OpenAI API",
+            "PostHog",
           ]}
+          stats={[
+            { num: "6", label: "Picks Per List" },
+            { num: "3", label: "Surfaces Shipped" },
+          ]}
+        />
+        <ProjectCard
+          title="Manna"
+          description="A private, distraction-free space for Christians to pour out what they're carrying and receive a single Scripture verse in response."
+          imgSrc={"/images/manna.png"}
+          skills={[
+            "React Native",
+            "Expo",
+            "TypeScript",
+            "Supabase",
+            "Claude AI",
+          ]}
+          stats={[
+            { num: "1", label: "Verse / Session" },
+            { num: "0", label: "Notifications" },
+          ]}
+          appStoreUrl={process.env.NEXT_PUBLIC_MANNA_IOS_URL}
+          playStoreUrl={process.env.NEXT_PUBLIC_MANNA_ANDROID_URL}
         />
         <ProjectCard
           title="CODERS Database"
@@ -170,37 +219,6 @@ export const Projects = forwardRef((props, ref) => {
             { num: "1", label: "Humans" },
             { num: "0", label: "Computers" },
           ]}
-        />
-        <ProjectCard
-          title="Manna"
-          description="A private, distraction-free space for Christians to pour out what they're carrying and receive a single Scripture verse in response."
-          imgSrc={"/images/manna.png"}
-          skills={[
-            "React Native",
-            "Expo",
-            "TypeScript",
-            "Supabase",
-            "Claude AI",
-          ]}
-          stats={[
-            { num: "1", label: "Verse / Session" },
-            { num: "0", label: "Notifications" },
-          ]}
-          appStoreUrl={process.env.NEXT_PUBLIC_MANNA_IOS_URL}
-          playStoreUrl={process.env.NEXT_PUBLIC_MANNA_ANDROID_URL}
-        />
-        <ProjectCard
-          title="GetUp"
-          description="An alarm app that forces you out of bed even on the coldest of mornings."
-          imgSrc={"/images/alarm.jpg"}
-          imgFit="cover"
-          stats={[
-            { num: "24198", label: "Coffees" },
-            { num: "0", label: "Snoozes" },
-          ]}
-          skills={["React Native", "Expo", "Typescript"]}
-          link={process.env.NEXT_PUBLIC_GET_UP_URL}
-          linkText="View on GitHub"
         />
       </ProjectGrid>
     </Container>
