@@ -28,7 +28,7 @@ const Main = styled.main`
   }
 `
 
-export const Home = ({ posts = [] }) => {
+export const Home = ({ posts = [], totalPosts = 0 }) => {
   const aboutRef = useRef(null)
   const skillsRef = useRef(null)
   const projectsRef = useRef(null)
@@ -76,7 +76,7 @@ export const Home = ({ posts = [] }) => {
           <About ref={aboutRef} />
           <SkillsArsenal ref={skillsRef} />
           <Projects ref={projectsRef} />
-          <Blog ref={blogRef} posts={posts} />
+          <Blog ref={blogRef} posts={posts} totalPosts={totalPosts} />
           <Timeline ref={timelineRef} />
           <ContactMe ref={contactRef} />
         </Main>

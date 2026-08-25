@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import styled from "@emotion/styled"
-import { PostCard } from "@/components/post-card"
+import { PostList } from "@/components/post-list"
 import { breakpoints, container } from "@/styles/theme"
 
 const Page = styled.main`
@@ -38,11 +38,22 @@ const BackLink = styled(Link)`
   }
 `
 
+/* The archive size is real information on an index page, and it is the one
+   line that has to change as the shelf fills up. */
+const Count = styled.div`
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 1.125rem;
+  letter-spacing: 0.22em;
+  font-variant-numeric: tabular-nums;
+  color: ${({ theme }) => theme.bronze};
+  margin-top: 2.5rem;
+`
+
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 3.25rem;
   color: ${({ theme }) => theme.foreground};
   letter-spacing: 0.125rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 
   ${breakpoints.mobile} {
     font-size: 2.25rem;
@@ -63,20 +74,8 @@ const Subtitle = styled.p`
   }
 `
 
-const PostGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
-  gap: 2rem;
+const Posts = styled.div`
   margin-top: 3rem;
-
-  ${breakpoints.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
 `
 
 const Empty = styled.p`
@@ -89,6 +88,11 @@ export const BlogPage = ({ posts = [] }) => (
   <Page>
     <Inner>
       <BackLink href="/">&larr; Back home</BackLink>
+      {posts.length > 0 && (
+        <Count>
+          {posts.length} {posts.length === 1 ? "post" : "posts"}
+        </Count>
+      )}
       <Title>Writing</Title>
       <Subtitle>
         Long-form notes on the things I build — what worked, what I deleted, and
@@ -97,11 +101,9 @@ export const BlogPage = ({ posts = [] }) => (
       {posts.length === 0 ? (
         <Empty>Nothing published yet. First post is in the works.</Empty>
       ) : (
-        <PostGrid>
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
-        </PostGrid>
+        <Posts>
+          <PostList posts={posts} />
+        </Posts>
       )}
     </Inner>
   </Page>
