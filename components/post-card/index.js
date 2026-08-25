@@ -4,12 +4,16 @@ import Link from "next/link"
 import styled from "@emotion/styled"
 import { breakpoints } from "@/styles/theme"
 
-const Card = styled(Link)`
+/* styled(Component) forwards every prop, so the layout flag is filtered out
+   before it reaches the anchor. */
+const Card = styled(Link, {
+  shouldForwardProp: (prop) => prop !== "$roomy",
+})`
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   height: 100%;
-  padding: 1.25rem;
+  padding: ${({ $roomy }) => ($roomy ? "1.75rem 2rem" : "1.25rem")};
   border: 2px solid ${({ theme }) => theme.olive};
   border-radius: 0.75rem;
   background-color: ${({ theme }) => theme.forest};
@@ -28,6 +32,19 @@ const Card = styled(Link)`
   &:hover [data-read-more] {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.bronze};
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
   }
 `
 
@@ -52,7 +69,7 @@ const Dot = styled.span`
 
 const Title = styled.h3`
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 1.25rem;
+  font-size: ${({ $roomy }) => ($roomy ? "1.45rem" : "1.25rem")};
   font-weight: 700;
   line-height: 1.25;
   color: ${({ theme }) => theme.cream};
@@ -69,7 +86,7 @@ const Excerpt = styled.p`
   color: ${({ theme }) => theme.primaryText};
   opacity: 0.85;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: ${({ $roomy }) => ($roomy ? 4 : 3)};
   -webkit-box-orient: vertical;
   overflow: hidden;
 `
@@ -101,18 +118,18 @@ const ReadMore = styled.span`
 
 const MAX_TAGS = 3
 
-export const PostCard = forwardRef(({ post }, ref) => {
+export const PostCard = forwardRef(({ post, roomy = false }, ref) => {
   const tags = post.tags.slice(0, MAX_TAGS)
 
   return (
-    <Card ref={ref} href={`/blog/${post.slug}`}>
+    <Card ref={ref} href={`/blog/${post.slug}`} $roomy={roomy}>
       <Meta>
         {post.date && <time dateTime={post.date}>{post.dateLabel}</time>}
         <Dot aria-hidden />
         <span>{post.readingTimeMinutes} min read</span>
       </Meta>
-      <Title>{post.title}</Title>
-      <Excerpt>{post.excerpt}</Excerpt>
+      <Title $roomy={roomy}>{post.title}</Title>
+      <Excerpt $roomy={roomy}>{post.excerpt}</Excerpt>
       <Tags>
         {tags.map((tag) => (
           <Tag key={tag}>{tag}</Tag>

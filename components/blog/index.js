@@ -4,7 +4,7 @@ import Link from "next/link"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { PostCard } from "@/components/post-card"
+import { PostList } from "@/components/post-list"
 import { breakpoints, container } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
@@ -20,23 +20,43 @@ const Container = styled.div`
   position: relative;
 `
 
-const Header = styled.h1`
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.foreground};
-  text-align: center;
-  letter-spacing: 0.125rem;
+/* Matches the sticker headings the other sections use, so the blog reads as
+   part of the page instead of a bolted-on feed. */
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`
+
+const StickerContainer = styled.div`
+  display: inline-block;
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.oliveSurface},
+    ${({ theme }) => theme.forest}
+  );
+  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+  color: ${({ theme }) => theme.cream};
+`
+
+const StickerText = styled.h2`
+  font-weight: 600;
+  font-size: 3.25rem;
+  letter-spacing: 0.15rem;
 
   ${breakpoints.mobile} {
-    font-size: 2rem;
-    letter-spacing: 0.075rem;
+    font-size: 2.25rem;
+    letter-spacing: 0.1rem;
   }
 `
 
 const Subtitle = styled.p`
   font-size: 1.125rem;
   color: ${({ theme }) => theme.primaryText};
-  margin-top: 0.5rem;
   opacity: 0.8;
   text-align: center;
   letter-spacing: 0.025rem;
@@ -47,21 +67,9 @@ const Subtitle = styled.p`
   }
 `
 
-const PostGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
-  gap: 2rem;
-  padding-block: 2rem;
+const Posts = styled.div`
   width: 100%;
-
-  ${breakpoints.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
+  padding-block: 2rem;
 `
 
 const AllPostsLink = styled(Link)`
@@ -85,7 +93,7 @@ const AllPostsLink = styled(Link)`
   }
 `
 
-export const Blog = forwardRef(({ posts = [] }, ref) => {
+export const Blog = forwardRef(({ posts = [], totalPosts = 0 }, ref) => {
   useEffect(() => {
     const el = ref?.current
     if (!el || prefersReducedMotion()) return
@@ -107,16 +115,23 @@ export const Blog = forwardRef(({ posts = [] }, ref) => {
 
   return (
     <Container ref={ref}>
-      <Header>From the Notebook</Header>
-      <Subtitle>
-        Notes on what I&apos;m building, breaking, and rethinking
-      </Subtitle>
-      <PostGrid>
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </PostGrid>
-      <AllPostsLink href="/blog">Read all posts &rarr;</AllPostsLink>
+      <Header>
+        <StickerContainer>
+          <StickerText>From the Notebook</StickerText>
+        </StickerContainer>
+        <Subtitle>
+          Notes on what I&apos;m building, breaking, and rethinking
+        </Subtitle>
+      </Header>
+      <Posts>
+        <PostList posts={posts} />
+      </Posts>
+      {/* every post is already on this page until the archive holds more */}
+      {totalPosts > posts.length && (
+        <AllPostsLink href="/blog">
+          Read all {totalPosts} posts &rarr;
+        </AllPostsLink>
+      )}
     </Container>
   )
 })

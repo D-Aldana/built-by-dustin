@@ -45,6 +45,16 @@ export const formatPostDate = (date) =>
     timeZone: "UTC",
   })
 
+/* The featured card sets its meta in condensed caps, where "August 26, 2026"
+   runs too long for a stat cell. */
+export const formatPostDateShort = (date) =>
+  new Date(`${date}T00:00:00Z`).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  })
+
 export const getPostSlugs = () =>
   fs.existsSync(BLOG_DIR)
     ? fs
@@ -69,6 +79,7 @@ export const getPostMeta = (slug) => {
     title: data.title ?? slug,
     date: data.date ?? null,
     dateLabel: data.date ? formatPostDate(data.date) : null,
+    dateLabelShort: data.date ? formatPostDateShort(data.date) : null,
     excerpt: data.excerpt ?? "",
     tags: data.tags ?? [],
     draft: data.draft === true,
