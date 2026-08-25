@@ -262,7 +262,7 @@ export const Timeline = forwardRef((props, ref) => {
       bigIcon: InputIcon,
       desc: [
         "Shipped features end-to-end across 6+ client products with Django/DRF, Next.js/React, and Expo/React Native, embedded with each client's team",
-        "Coffee & Contracts: built an Instagram analytics suite, content calendar, tiered membership billing, and a page builder for real estate agents",
+        "Coffee & Contracts: built the platform's Anthropic Claude integration — model routing, prompt caching, structured JSON output — powering an AI caption generator for agents; also shipped Instagram analytics, a content calendar, and tiered membership billing",
         "CareMobi & Aliviado (NYU Nursing): built mobile and web health-logging tools, care-team invites and role-based access, biometric login, and tiered entitlements",
         "Six: built the mobile app, web dashboard, and API from zero, including engagement analytics, team hierarchies, and PostHog product analytics",
         "Input Cowork: implemented Stripe billing for subscriptions, day passes, card management, and invoicing",
