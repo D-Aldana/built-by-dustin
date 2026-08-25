@@ -63,7 +63,7 @@ const Thumb = styled.div`
   position: relative;
   height: ${THUMB_HEIGHT};
   flex: none;
-  background-color: ${({ theme }) => theme.muted};
+  background-color: ${({ theme, bg }) => bg || theme.muted};
   border-bottom: 1px solid ${({ theme }) => `${theme.olive}`};
 
   img {
@@ -276,6 +276,7 @@ export const ProjectCard = forwardRef(
       playStoreUrl = null,
       imgSrc = null,
       imgFit = "contain",
+      thumbBg = null,
       skills = [],
       stats = [],
     },
@@ -386,7 +387,7 @@ export const ProjectCard = forwardRef(
             inert={flipped ? true : undefined}
             aria-hidden={flipped}
           >
-            <Thumb fit={imgFit}>
+            <Thumb fit={imgFit} bg={thumbBg}>
               {imgSrc && (
                 <Image
                   src={imgSrc}
