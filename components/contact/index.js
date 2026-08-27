@@ -9,7 +9,6 @@ import { SpotlightCard } from "@/components/spotlight-card"
 import {
   HomePlateIcon,
   ContactEnvelope,
-  PhoneIcon,
   LocationIcon,
   AirplaneIcon,
 } from "@/components/icons"
@@ -465,15 +464,6 @@ export const ContactMe = forwardRef((props, ref) => {
               <ContactValue>
                 <ContactLabel>Email</ContactLabel>
                 <ContactInfo>{process.env.NEXT_PUBLIC_EMAIL}</ContactInfo>
-              </ContactValue>
-            </ContactCard>
-            <ContactCard>
-              <IconWrapper>
-                <PhoneIcon color={theme.bronze} width={20} height={20} />
-              </IconWrapper>
-              <ContactValue>
-                <ContactLabel>Phone</ContactLabel>
-                <ContactInfo>{process.env.NEXT_PUBLIC_PHONE}</ContactInfo>
               </ContactValue>
             </ContactCard>
             <ContactCard>
