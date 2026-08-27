@@ -151,7 +151,7 @@ export const Projects = forwardRef((props, ref) => {
         />
         <ProjectCard
           title="Six"
-          description="A social recommendation platform built on lists of exactly six favorites — restaurants, places, products — shared privately, on a public profile, or to a map-based discover feed."
+          description="A social recommendation app built on lists of exactly six favorites, shared privately or discovered on a map."
           link={process.env.NEXT_PUBLIC_SIX_URL}
           imgSrc={"/images/six.png"}
           skills={[
