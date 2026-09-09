@@ -3,7 +3,7 @@ import "./spotlight-card.css"
 
 export const SpotlightCard = forwardRef(
   (
-    { children, className = "", spotlightColor = "rgba(255, 255, 255, 0.25)" },
+    { children, className = "", spotlightColor = "rgba(221, 161, 94, 0.1)" },
     ref,
   ) => {
     const divRef = useRef(null)

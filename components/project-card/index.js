@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
+import { radius, elevation } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 const CARD_HEIGHT = "460px"
@@ -16,7 +17,7 @@ const FlipCard = styled.div`
   &:hover [data-face],
   &:focus-within [data-face] {
     border-color: ${({ theme }) => theme.bronze};
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: ${elevation.mid};
   }
 `
 
@@ -31,8 +32,8 @@ const CardFace = styled.div`
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border: 2px solid ${({ theme }) => theme.olive};
-  border-radius: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -42,16 +43,15 @@ const CardFace = styled.div`
 `
 
 const CardFront = styled(CardFace)`
-  background-color: ${({ theme }) => theme.forest};
+  background-color: ${({ theme }) => theme.surface};
 `
 
+/* The back used to flip from dark forest to a full bleed of bronze, which read
+   as a flash. It is now one step up the same surface ladder, and the stat line
+   below does the work of telling you the card turned over. */
 const CardBack = styled(CardFace)`
-  background: linear-gradient(
-    to bottom right,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.bronzeLight}
-  );
-  color: ${({ theme }) => theme.forest};
+  background-color: ${({ theme }) => theme.surfaceRaised};
+  color: ${({ theme }) => theme.chalk};
   transform: rotateY(180deg);
   padding: 1.25rem;
   gap: 0.5rem;
@@ -63,8 +63,8 @@ const Thumb = styled.div`
   position: relative;
   height: ${THUMB_HEIGHT};
   flex: none;
-  background-color: ${({ theme, bg }) => bg || theme.muted};
-  border-bottom: 1px solid ${({ theme }) => `${theme.olive}`};
+  background-color: ${({ theme, bg }) => bg || theme.surfaceRaised};
+  border-bottom: 1px solid ${({ theme }) => theme.line};
 
   img {
     object-fit: ${({ fit }) => fit};
@@ -86,14 +86,14 @@ const Title = styled.h3`
   font-size: 1.3rem;
   font-weight: 700;
   line-height: 1.2;
-  color: ${({ theme, back }) => (back ? theme.forest : theme.cream)};
+  color: ${({ theme }) => theme.chalk};
   text-wrap: balance;
 `
 
 const DescriptionText = styled.p`
   font-size: 0.95rem;
   line-height: 1.6;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.textMuted};
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -113,12 +113,11 @@ const SkillsList = styled.div`
 `
 
 const SkillPill = styled.span`
-  background-color: ${({ theme, back }) =>
-    back ? `${theme.forest}90` : `${theme.bronze}1f`};
-  border: 1px solid ${({ theme }) => `${theme.bronze}70`};
-  color: ${({ theme, back }) => (back ? theme.cream : theme.bronze)};
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
+  border: 1px solid ${({ theme }) => `${theme.bronze}59`};
+  color: ${({ theme }) => theme.bronze};
   padding: 0.1rem 0.45rem;
-  border-radius: 6px;
+  border-radius: ${radius.sm};
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
@@ -129,8 +128,8 @@ const SkillPill = styled.span`
 const SkillCount = styled(SkillPill)`
   background-color: transparent;
   border-style: dashed;
-  color: ${({ theme }) => theme.oliveText};
-  border-color: ${({ theme }) => `${theme.oliveText}80`};
+  color: ${({ theme }) => theme.textSubtle};
+  border-color: ${({ theme }) => theme.lineStrong};
 `
 
 const Actions = styled.div`
@@ -144,13 +143,10 @@ const Actions = styled.div`
   min-height: 2.375rem;
 `
 
-// styled() on a component forwards every prop, so `back` would reach the <a>
-const PrimaryLink = styled(Link, {
-  shouldForwardProp: (prop) => prop !== "back",
-})`
+const PrimaryLink = styled(Link)`
   font-size: 0.9rem;
   font-weight: 600;
-  color: ${({ theme, back }) => (back ? theme.forest : theme.bronze)};
+  color: ${({ theme }) => theme.bronze};
   text-decoration: underline;
   text-underline-offset: 3px;
 
@@ -162,7 +158,7 @@ const PrimaryLink = styled(Link, {
 const ComingSoon = styled.span`
   font-size: 0.9rem;
   font-weight: 600;
-  color: ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const DetailsButton = styled.button`
@@ -172,19 +168,19 @@ const DetailsButton = styled.button`
   font-weight: 600;
   letter-spacing: 0.03em;
   padding: 0.25rem 0.7rem;
-  border-radius: 999px;
+  border-radius: ${radius.pill};
   cursor: pointer;
   background: transparent;
-  border: 1px solid
-    ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
-  color: ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
+  border: 1px solid ${({ theme }) => theme.lineStrong};
+  color: ${({ theme }) => theme.textSubtle};
   transition:
     background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease;
 
   &:hover {
-    background-color: ${({ theme, back }) =>
-      back ? `${theme.forest}20` : `${theme.oliveText}25`};
+    border-color: ${({ theme }) => theme.bronze};
+    color: ${({ theme }) => theme.bronze};
   }
 `
 
@@ -200,23 +196,24 @@ const Stat = styled.div`
   align-items: center;
   justify-content: center;
   flex: 1;
-  background-color: ${({ theme }) => `${theme.cream}20`};
-  border: 1px solid ${({ theme }) => `${theme.cream}40`};
-  border-radius: 0.5rem;
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.sm};
   padding: 0.6rem 0.5rem;
 `
 
 const StatNumber = styled.span`
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
   line-height: 1.1;
-  color: ${({ theme }) => theme.forest};
+  color: ${({ theme }) => theme.bronze};
   font-variant-numeric: tabular-nums;
 `
 
 const StatLabel = styled.span`
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.forest};
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme.textSubtle};
   margin-top: 0.15rem;
   text-align: center;
   line-height: 1.3;
@@ -227,8 +224,7 @@ const TechText = styled.p`
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.forest};
-  opacity: 0.75;
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const BackSkills = styled(SkillsList)`
@@ -306,7 +302,7 @@ export const ProjectCard = forwardRef(
         .to(el, { rotationY: target, duration: 0.45, ease: "power2.inOut" })
     }, [flipped])
 
-    const renderLink = (back) => {
+    const renderLink = () => {
       if (appStoreUrl || playStoreUrl) {
         return (
           <StoreBadges>
@@ -349,14 +345,13 @@ export const ProjectCard = forwardRef(
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            back={back}
             aria-label={`${linkText}: ${title}`}
           >
             {linkText} &rarr;
           </PrimaryLink>
         )
       }
-      return <ComingSoon back={back}>Coming soon</ComingSoon>
+      return <ComingSoon>Coming soon</ComingSoon>
     }
 
     const toggle = () => setFlipped((f) => !f)
@@ -364,7 +359,6 @@ export const ProjectCard = forwardRef(
     const detailsButton = (back) => (
       <DetailsButton
         type="button"
-        back={back}
         onClick={toggle}
         aria-expanded={flipped}
         aria-controls={backId}
@@ -413,7 +407,7 @@ export const ProjectCard = forwardRef(
                 )}
               </SkillsList>
               <Actions>
-                {renderLink(false)}
+                {renderLink()}
                 {detailsButton(false)}
               </Actions>
             </Body>
@@ -425,7 +419,7 @@ export const ProjectCard = forwardRef(
             inert={flipped ? undefined : true}
             aria-hidden={!flipped}
           >
-            <Title back>{title}</Title>
+            <Title>{title}</Title>
             {stats.length > 0 && (
               <StatsContainer>
                 {stats.map((stat) => (
@@ -439,13 +433,11 @@ export const ProjectCard = forwardRef(
             <TechText>Built with</TechText>
             <BackSkills>
               {skills.map((skill) => (
-                <SkillPill back key={skill}>
-                  {skill}
-                </SkillPill>
+                <SkillPill key={skill}>{skill}</SkillPill>
               ))}
             </BackSkills>
             <Actions style={{ marginTop: "auto" }}>
-              {renderLink(true)}
+              {renderLink()}
               {detailsButton(true)}
             </Actions>
           </CardBack>

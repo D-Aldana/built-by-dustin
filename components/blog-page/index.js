@@ -2,20 +2,15 @@
 import Link from "next/link"
 import styled from "@emotion/styled"
 import { PostList } from "@/components/post-list"
-import { breakpoints, container } from "@/styles/theme"
+import { breakpoints, container, duskWash } from "@/styles/theme"
 
 const Page = styled.main`
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  /* the hero's cream wash works because its text sits mid-gradient; these pages
-     are text-left, so a soft olive glow keeps contrast even in the corner. */
+  /* same low sun as the hero, so the whole site is lit once from one place */
   background-color: ${({ theme }) => theme.background};
-  background-image: radial-gradient(
-    90% 60% at 10% 0%,
-    ${({ theme }) => `${theme.olive}55`} 0%,
-    transparent 62%
-  );
+  background-image: ${duskWash};
   padding-block: 3rem 5rem;
 `
 
@@ -30,7 +25,7 @@ const BackLink = styled(Link)`
   font-family: var(--font-montserrat), sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 
   &:hover {
     text-decoration: underline;
@@ -51,13 +46,13 @@ const Count = styled.div`
 
 const Title = styled.h1`
   font-size: 3.25rem;
+  font-weight: 600;
+  line-height: 1.1;
   color: ${({ theme }) => theme.foreground};
-  letter-spacing: 0.125rem;
   margin-top: 0.5rem;
 
   ${breakpoints.mobile} {
     font-size: 2.25rem;
-    letter-spacing: 0.075rem;
   }
 `
 
@@ -65,8 +60,7 @@ const Subtitle = styled.p`
   font-size: 1.125rem;
   max-width: 44rem;
   line-height: 1.7;
-  color: ${({ theme }) => theme.primaryText};
-  opacity: 0.85;
+  color: ${({ theme }) => theme.textMuted};
   margin-top: 0.75rem;
 
   ${breakpoints.mobile} {
@@ -80,8 +74,7 @@ const Posts = styled.div`
 
 const Empty = styled.p`
   margin-top: 3rem;
-  color: ${({ theme }) => theme.primaryText};
-  opacity: 0.8;
+  color: ${({ theme }) => theme.textMuted};
 `
 
 export const BlogPage = ({ posts = [] }) => (

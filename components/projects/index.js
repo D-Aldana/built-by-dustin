@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ProjectCard } from "@/components/project-card"
+import { SectionHeading } from "@/components/section-heading"
 import { breakpoints, container } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
@@ -29,34 +30,8 @@ const WaveBackground = styled.div`
   background-size: 300px auto;
   background-repeat: repeat-x;
   background-position: 0% 10%;
-  opacity: 0.3;
+  opacity: 0.12;
   z-index: 0;
-`
-
-const Header = styled.h1`
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.foreground};
-  text-align: center;
-  letter-spacing: 0.125rem;
-  ${breakpoints.mobile} {
-    font-size: 2rem;
-    letter-spacing: 0.075rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 0.5rem;
-  opacity: 0.8;
-  text-align: center;
-  letter-spacing: 0.025rem;
-
-  ${breakpoints.mobile} {
-    font-size: 1rem;
-    letter-spacing: 0.015rem;
-  }
 `
 
 const ProjectGrid = styled.div`
@@ -102,10 +77,10 @@ export const Projects = forwardRef((props, ref) => {
   return (
     <Container ref={ref}>
       <WaveBackground />
-      <Header>Featured Work</Header>
-      <Subtitle>
-        A mix of fun projects I&apos;ve worked on and a few still in progress
-      </Subtitle>
+      <SectionHeading
+        title="Featured Work"
+        subtitle="A mix of fun projects I've worked on and a few still in progress"
+      />
       <ProjectGrid>
         <ProjectCard
           title="Coffee & Contracts"

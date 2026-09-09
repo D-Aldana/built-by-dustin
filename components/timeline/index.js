@@ -15,7 +15,8 @@ import {
   InputIcon,
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
-import { breakpoints, container } from "@/styles/theme"
+import { SectionHeading } from "@/components/section-heading"
+import { breakpoints, container, radius, elevation } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
 
@@ -29,45 +30,8 @@ const Container = styled.div`
   overflow: hidden;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+const Header = styled(SectionHeading)`
   margin: 2rem 0 1rem;
-  width: 100%;
-`
-
-const StickerContainer = styled.div`
-  display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
-  transform: rotate(2deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  color: ${({ theme }) => theme.cream};
-`
-
-const StickerText = styled.h2`
-  font-size: 3.25rem;
-  font-weight: 600;
-  letter-spacing: 0.15rem;
-  ${breakpoints.mobile} {
-    font-size: 2.25rem;
-    letter-spacing: 0.1rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 1.25rem;
-  text-align: center;
 `
 
 const TimelineContainer = styled.div`
@@ -85,9 +49,8 @@ const TimelineContainer = styled.div`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 2px;
-    background: ${({ theme }) => theme.olive};
-    opacity: 0.6;
+    width: 1px;
+    background-color: ${({ theme }) => theme.lineStrong};
   }
 `
 
@@ -111,11 +74,11 @@ const TimelineOuterCircle = styled.div`
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background: ${({ theme }) => theme.forest};
+  width: 26px;
+  height: 26px;
+  background-color: ${({ theme }) => theme.background};
   border-radius: 50%;
-  border: 2px solid ${({ theme }) => theme.olive};
+  border: 1px solid ${({ theme }) => theme.lineStrong};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,39 +86,24 @@ const TimelineOuterCircle = styled.div`
 `
 
 const TimelineInnerCircle = styled.div`
-  width: 20px;
-  height: 20px;
-  background: ${({ theme }) => theme.bronze};
+  width: 10px;
+  height: 10px;
+  background-color: ${({ theme }) => theme.bronze};
   border-radius: 50%;
-  box-shadow: 0 0 10px ${({ theme }) => theme.bronze};
-  animation: pulse 1s ease-in-out infinite;
-  @keyframes pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 10px ${({ theme }) => theme.bronze};
-    }
-    50% {
-      box-shadow: 0 0 20px ${({ theme }) => theme.bronze};
-    }
-  }
 `
 
 const TimelineCard = styled(SpotlightCard)`
-  background: ${({ theme }) => theme.card};
+  background-color: ${({ theme }) => theme.surface};
   color: ${({ theme }) => theme.cardForeground};
   width: 100%;
-  border: 4px solid ${({ theme }) => `${theme.bronze}40`};
-  border-radius: 10px;
-  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  transition:
-    box-shadow 0.3s ease,
-    border 0.3s ease;
+  transition: border-color 0.3s ease;
   &:hover {
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
-    border: 4px solid ${({ theme }) => `${theme.bronze}70`};
+    border-color: ${({ theme }) => theme.bronze};
   }
   ${breakpoints.mobile} {
     width: 100%;
@@ -171,38 +119,47 @@ const TimelineHeaderIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => `${theme.bronze}30`};
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
   color: ${({ theme }) => theme.bronze};
-  height: 3rem;
-  width: 3rem;
-  border-radius: 8px;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex: none;
+  border-radius: ${radius.sm};
 `
 const TimelineHeaderTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
 const TimelineType = styled.span`
+  font-family: var(--font-bebas), sans-serif;
   font-size: 0.875rem;
-  font-weight: 500;
+  letter-spacing: 0.16em;
   color: ${({ theme }) => theme.bronze};
   margin-bottom: 0.25rem;
 `
-const TimelineTitle = styled.p`
+const TimelineTitle = styled.h3`
   font-size: 1.125rem;
   font-weight: 600;
+  color: ${({ theme }) => theme.chalk};
 `
 const TimelineCompany = styled.p`
   font-size: 0.875rem;
+  color: ${({ theme }) => theme.textMuted};
 `
 const TimelineDescription = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1rem;
-  color: ${({ theme }) => theme.primaryColor};
+  padding: 1.25rem 0 0 1.15rem;
+  color: ${({ theme }) => theme.textMuted};
   list-style-type: disc;
   font-size: 0.875rem;
-  gap: 0.25rem;
+  line-height: 1.65;
+  gap: 0.5rem;
+
+  li::marker {
+    color: ${({ theme }) => theme.textSubtle};
+  }
 `
 
 const TimelineDateWrapper = styled.div`
@@ -217,23 +174,22 @@ const TimelineDateWrapper = styled.div`
   }
 `
 const TimelineDate = styled.span`
-  padding: 0.4rem 0.75rem;
-  background: linear-gradient(
-    to left,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.bronzeLight}
-  );
-  border-radius: 1rem;
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background-color: ${({ theme }) => theme.bronze};
+  border-radius: ${radius.pill};
   color: ${({ theme }) => theme.forest};
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.875rem;
   font-weight: 600;
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
+  font-variant-numeric: tabular-nums;
+  box-shadow: ${elevation.low};
 `
 
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => `${theme.primaryColor}50`};
   position: absolute;
   left: 50%;
   top: 50%;
@@ -405,14 +361,11 @@ export const Timeline = forwardRef((props, ref) => {
   return (
     <Container ref={ref}>
       <Base title="3RD" ref={baseRef} />
-      <Header ref={headerRef}>
-        <StickerContainer>
-          <StickerText>My Journey</StickerText>
-        </StickerContainer>
-        <Subtitle>
-          A timeline of my experiences and milestones throughout my career
-        </Subtitle>
-      </Header>
+      <Header
+        ref={headerRef}
+        title="My Journey"
+        subtitle="A timeline of my experiences and milestones throughout my career"
+      />
       <TimelineContainer>
         {items.map((item, i) => (
           <TimelineItem key={i} reverse={i % 2 === 1}>
@@ -446,7 +399,7 @@ export const Timeline = forwardRef((props, ref) => {
                   <item.bigIcon
                     height={180}
                     width={180}
-                    color={`${theme.olive}40`}
+                    color={theme.lineStrong}
                   />
                 </IconWrapper>
               )}

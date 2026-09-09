@@ -12,8 +12,9 @@ import {
   LocationIcon,
   AirplaneIcon,
 } from "@/components/icons"
+import { SectionHeading } from "@/components/section-heading"
 import { sendEmail } from "@/util/sendEmail"
-import { breakpoints, container } from "@/styles/theme"
+import { breakpoints, container, radius, elevation } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -32,48 +33,9 @@ const Container = styled.div`
   margin-bottom: 1rem;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+const Header = styled(SectionHeading)`
   margin-top: 3rem;
-  width: 100%;
-`
-
-const StickerContainer = styled.div`
-  display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
-  transform: rotate(-1deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: ${({ theme }) => theme.cream};
-`
-
-const StickerText = styled.h2`
-  font-weight: 600;
-  font-size: 3.25rem;
-  letter-spacing: 0.15rem;
-
-  ${breakpoints.mobile} {
-    font-size: 2.25rem;
-    letter-spacing: 0.1rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 1.25rem;
-  text-align: center;
+  margin-bottom: 1rem;
 `
 
 const ContactContent = styled.div`
@@ -102,34 +64,42 @@ const ContactForm = styled.form`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  border: 4px solid ${({ theme }) => `${theme.bronze}40`};
-  border-radius: 10px;
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
   padding: 2rem;
 `
 
 const FormLabel = styled.label`
-  font-size: 1rem;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.textSubtle};
   margin-bottom: 0.5rem;
 `
 
 const FormInput = styled.input`
   width: 100%;
-  padding: 0.5rem;
-  border: 2px solid ${({ theme }) => `${theme.bronze}40`};
-  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  background-color: ${({ theme }) => theme.background};
+  border: 1px solid ${({ theme }) => theme.lineStrong};
+  border-radius: ${radius.sm};
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 1rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.primaryText};
+  margin-bottom: 1.25rem;
+  color: ${({ theme }) => theme.chalk};
+  transition: border-color 0.2s ease;
+  resize: vertical;
+
   &:focus {
     outline: none;
     border-color: ${({ theme }) => theme.bronze};
-    box-shadow: 0 0 5px ${({ theme }) => theme.bronze};
   }
 
   &::placeholder {
-    color: ${({ theme }) => `${theme.primaryText}80`};
+    color: ${({ theme }) => theme.textSubtle};
   }
 `
 
@@ -142,29 +112,21 @@ export const SubmitButton = styled.button`
   font-size: 1rem;
   font-weight: 700;
   transition: all 0.2s ease;
-  height: 2.5rem;
+  height: 2.75rem;
   width: 100%;
-  border-radius: 0.375rem;
+  border-radius: ${radius.pill};
   padding: 0 1.5rem;
   outline: none;
   border: none;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.bronzeLight}
-  );
+  background-color: ${({ theme }) => theme.bronze};
   color: ${({ theme }) => theme.forest};
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: ${elevation.low};
 
   &:hover {
-    background: linear-gradient(
-      to right,
-      ${({ theme }) => theme.bronzeLight},
-      ${({ theme }) => theme.bronze}
-    );
+    background-color: ${({ theme }) => theme.bronzeLight};
   }
 
   &:disabled {
@@ -178,7 +140,7 @@ export const SubmitButton = styled.button`
   }
 
   &:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
   }
 `
 
@@ -189,14 +151,15 @@ const DetailsHeader = styled.div`
   gap: 1.5rem;
 `
 
-const Title = styled.p`
-  font-size: 1.25rem;
+const Title = styled.h3`
+  font-size: 1.375rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.chalk};
 `
 
 const SubtitleText = styled.p`
-  color: ${({ theme }) => `${theme.primaryText}90`};
+  line-height: 1.7;
+  color: ${({ theme }) => theme.textMuted};
 `
 
 const ContactCards = styled.div`
@@ -216,15 +179,12 @@ const ContactCard = styled(SpotlightCard)`
   justify-content: flex-start;
   gap: 1rem;
 
-  border: 2px solid ${({ theme }) => `${theme.bronze}40`};
-  border-radius: 10px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  transition:
-    box-shadow 0.3s ease,
-    border 0.3s ease;
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
+  transition: border-color 0.3s ease;
   &:hover {
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.3s ease;
+    border-color: ${({ theme }) => theme.bronze};
   }
 `
 
@@ -232,11 +192,12 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => `${theme.bronze}30`};
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
   color: ${({ theme }) => theme.bronze};
-  height: 3rem;
-  width: 3rem;
-  border-radius: 8px;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex: none;
+  border-radius: ${radius.sm};
 `
 
 const ContactValue = styled.div`
@@ -246,33 +207,33 @@ const ContactValue = styled.div`
 `
 
 const ContactLabel = styled.p`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.primaryText};
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const ContactInfo = styled.p`
   font-size: 1rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
-  margin-bottom: 0;
+  color: ${({ theme }) => theme.chalk};
 `
 
 const AvailabilityBadge = styled(SpotlightCard)`
   width: 100%;
-  background: radial-gradient(
-    circle at 25% 25%,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  color: ${({ theme }) => theme.cream};
-  border: 2px solid ${({ theme }) => theme.olive};
-  padding: 1rem;
-  border-radius: 5px;
+  background-color: ${({ theme }) => theme.surfaceRaised};
+  color: ${({ theme }) => theme.chalk};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-left: 3px solid ${({ theme }) => theme.bronze};
+  padding: 1.125rem 1.25rem;
+  border-radius: ${radius.md};
   font-weight: 600;
   margin-bottom: 1rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  gap: 1rem;
 `
 
 const StatusWrapper = styled.div`
@@ -283,15 +244,17 @@ const StatusWrapper = styled.div`
 `
 
 const StatusLabel = styled.p`
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.cream};
-  opacity: 0.8;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const StatusText = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
 `
 
 const StatusIndicator = styled.div`
@@ -299,46 +262,44 @@ const StatusIndicator = styled.div`
   align-items: center;
 `
 
+/* The one thing on the page that is genuinely live, so it is the one thing
+   that moves on its own. */
 const Indicator = styled.div`
   height: 0.5rem;
   width: 0.5rem;
+  flex: none;
   border-radius: 50%;
-  background: ${({ theme }) => theme.bronze};
+  background-color: ${({ theme }) => theme.bronze};
   margin-right: 0.5rem;
-  box-shadow: 0 0 10px ${({ theme }) => theme.bronze};
 
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-      box-shadow: 0 0 5px ${({ theme }) => theme.bronze};
+  @keyframes availabilityPulse {
+    0%,
+    100% {
+      opacity: 0.45;
     }
     50% {
-      transform: scale(1.2);
-      box-shadow: 0 0 15px ${({ theme }) => theme.bronze};
-    }
-    100% {
-      transform: scale(1);
-      box-shadow: 0 0 5px ${({ theme }) => theme.bronze};
+      opacity: 1;
     }
   }
 
-  animation: pulse 2s infinite;
+  animation: availabilityPulse 2.4s ease-in-out infinite;
 `
 
 const IndicatorText = styled.p`
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.cream};
+  white-space: nowrap;
+  color: ${({ theme }) => theme.textMuted};
 `
 
 const Footer = styled.footer`
   text-align: center;
   width: 100%;
   padding: 2rem;
-  color: ${(props) => props.theme.primaryText};
-  font-size: 1rem;
-  font-weight: 600;
-  border-top: 3px solid ${(props) => `${props.theme.bronze}40`};
+  color: ${({ theme }) => theme.textSubtle};
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.875rem;
+  border-top: 1px solid ${({ theme }) => theme.line};
   margin-top: 2rem;
 `
 
@@ -440,12 +401,11 @@ export const ContactMe = forwardRef((props, ref) => {
 
   return (
     <Container ref={ref}>
-      <Header ref={headerRef}>
-        <StickerContainer>
-          <StickerText>Contact Me</StickerText>
-        </StickerContainer>
-        <Subtitle>Ready to build something awesome? Let&apos;s chat!</Subtitle>
-      </Header>
+      <Header
+        ref={headerRef}
+        title="Contact Me"
+        subtitle="Ready to build something awesome? Let's chat!"
+      />
       <ContactContent>
         <ContactDetails ref={leftSideRef}>
           <DetailsHeader>

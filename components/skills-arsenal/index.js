@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useEffect, useState } from "react"
+import { forwardRef, useRef, useEffect } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
@@ -11,7 +11,8 @@ import {
   DesignIcon,
   RocketIcon,
 } from "@/components/icons"
-import { breakpoints, container } from "@/styles/theme"
+import { SectionHeading } from "@/components/section-heading"
+import { breakpoints, container, radius } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -38,52 +39,13 @@ const WaveBackground = styled.div`
   background-size: 300px auto;
   background-repeat: repeat-x;
   background-position: 0% 40%;
-  opacity: 0.3;
+  opacity: 0.12;
   z-index: 0;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+const Header = styled(SectionHeading)`
   margin-top: 3rem;
-  width: 100%;
-`
-
-const StickerContainer = styled.div`
-  display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
-  transform: rotate(-1deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: ${({ theme }) => theme.cream};
-`
-
-const StickerText = styled.h2`
-  font-weight: 600;
-  font-size: 3.25rem;
-  letter-spacing: 0.15rem;
-
-  ${breakpoints.mobile} {
-    font-size: 2.25rem;
-    letter-spacing: 0.1rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 1.25rem;
-  text-align: center;
+  margin-bottom: 1rem;
 `
 
 const SkillsGrid = styled.div`
@@ -101,27 +63,33 @@ const SkillsGrid = styled.div`
 const SkillCard = styled(SpotlightCard)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.bronze};
-  border-radius: 0.5rem;
+  justify-content: flex-start;
+  padding: 1.5rem 1.25rem;
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
   gap: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.25s ease,
+    border-color 0.25s ease;
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.bronze};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
   }
 `
 
-const SkillsTitle = styled.p`
+const SkillsTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 0.75rem;
+  color: ${({ theme }) => theme.chalk};
+  margin-top: 0.5rem;
 `
 
 const SkillsList = styled.div`
@@ -132,11 +100,11 @@ const SkillsList = styled.div`
 `
 
 const SkillPill = styled.span`
-  background-color: ${({ theme }) => `${theme.bronze}1f`};
-  border: 0.5px solid ${({ theme }) => theme.bronze}70;
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
+  border: 1px solid ${({ theme }) => `${theme.bronze}59`};
   color: ${({ theme }) => theme.bronze};
-  padding: 0 0.5rem;
-  border-radius: 6px;
+  padding: 0.15rem 0.5rem;
+  border-radius: ${radius.sm};
   font-size: 0.75rem;
   font-weight: 600;
 `
@@ -145,7 +113,6 @@ export const SkillsArsenal = forwardRef((props, ref) => {
   const theme = useTheme()
   const baseRef = useRef(null)
   const containerRef = useRef(null)
-  const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
     if (!baseRef.current || !containerRef.current) return
@@ -185,14 +152,10 @@ export const SkillsArsenal = forwardRef((props, ref) => {
     <Container ref={containerRef}>
       <WaveBackground />
       <Base title="2ND" ref={baseRef} />
-      <Header>
-        <StickerContainer>
-          <StickerText>Skills Arsenal</StickerText>
-        </StickerContainer>
-        <Subtitle>
-          A well-rounded toolkit for building modern web applications
-        </Subtitle>
-      </Header>
+      <Header
+        title="Skills Arsenal"
+        subtitle="A well-rounded toolkit for building modern web applications"
+      />
       <SkillsGrid>
         <SkillCard>
           <FrontendIcon

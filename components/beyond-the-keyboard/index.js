@@ -13,7 +13,8 @@ import {
   BookIcon,
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
-import { breakpoints } from "@/styles/theme"
+import { SectionHeading } from "@/components/section-heading"
+import { breakpoints, radius } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -25,32 +26,6 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   padding-block: 2rem;
-`
-
-const Header = styled.h1`
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.foreground};
-  text-align: center;
-  letter-spacing: 0.125rem;
-  ${breakpoints.mobile} {
-    font-size: 2rem;
-    letter-spacing: 0.075rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 0.5rem;
-  opacity: 0.8;
-  text-align: center;
-  letter-spacing: 0.025rem;
-
-  ${breakpoints.mobile} {
-    font-size: 1rem;
-    letter-spacing: 0.015rem;
-  }
 `
 
 const HobbyGrid = styled.div`
@@ -70,30 +45,37 @@ const HobbyCard = styled(SpotlightCard)`
   display: flex;
   flex-direction: column;
   gap: 0.325rem;
-  border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
+  padding: 1.5rem 1.25rem;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.25s ease,
+    border-color 0.25s ease;
 
   &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.bronze};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
   }
 `
 
-const HobbyTitle = styled.p`
-  font-size: 1.25rem;
+const HobbyTitle = styled.h4`
+  font-size: 1.1875rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.chalk};
   margin-top: 0.5rem;
 `
 
 const HobbyDesc = styled.p`
   font-size: 0.875rem;
-  color: ${({ theme }) => theme.primaryText};
+  line-height: 1.6;
+  color: ${({ theme }) => theme.textMuted};
   margin-top: 0.25rem;
 `
 
@@ -124,10 +106,12 @@ export const BeyondTheKeyboard = () => {
 
   return (
     <Container ref={containerRef}>
-      <Header>Beyond The Keyboard</Header>
-      <Subtitle>
-        Hobbies and interests that keep me balanced and inspired
-      </Subtitle>
+      <SectionHeading
+        as="h3"
+        small
+        title="Beyond The Keyboard"
+        subtitle="Hobbies and interests that keep me balanced and inspired"
+      />
       <HobbyGrid>
         <HobbyCard>
           <FryingPanIcon animate width={50} height={50} color={theme.rust} />
