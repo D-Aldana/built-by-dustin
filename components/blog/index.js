@@ -5,7 +5,8 @@ import styled from "@emotion/styled"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { PostList } from "@/components/post-list"
-import { breakpoints, container } from "@/styles/theme"
+import { SectionHeading } from "@/components/section-heading"
+import { container, radius } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -20,53 +21,6 @@ const Container = styled.div`
   position: relative;
 `
 
-/* Matches the sticker headings the other sections use, so the blog reads as
-   part of the page instead of a bolted-on feed. */
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`
-
-const StickerContainer = styled.div`
-  display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
-  transform: rotate(-1deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  color: ${({ theme }) => theme.cream};
-`
-
-const StickerText = styled.h2`
-  font-weight: 600;
-  font-size: 3.25rem;
-  letter-spacing: 0.15rem;
-
-  ${breakpoints.mobile} {
-    font-size: 2.25rem;
-    letter-spacing: 0.1rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  color: ${({ theme }) => theme.primaryText};
-  opacity: 0.8;
-  text-align: center;
-  letter-spacing: 0.025rem;
-
-  ${breakpoints.mobile} {
-    font-size: 1rem;
-    letter-spacing: 0.015rem;
-  }
-`
-
 const Posts = styled.div`
   width: 100%;
   padding-block: 2rem;
@@ -76,20 +30,20 @@ const AllPostsLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.oliveText};
-  padding: 0.5rem 2rem;
+  border-radius: ${radius.pill};
+  border: 1px solid ${({ theme }) => theme.lineStrong};
+  padding: 0.55rem 1.75rem;
   font-family: var(--font-montserrat), sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.chalk};
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color 0.25s ease,
+    border-color 0.25s ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.muted};
-    color: ${({ theme }) => theme.cream};
+    background-color: ${({ theme }) => theme.surface};
+    border-color: ${({ theme }) => theme.bronze};
   }
 `
 
@@ -115,14 +69,10 @@ export const Blog = forwardRef(({ posts = [], totalPosts = 0 }, ref) => {
 
   return (
     <Container ref={ref}>
-      <Header>
-        <StickerContainer>
-          <StickerText>From the Notebook</StickerText>
-        </StickerContainer>
-        <Subtitle>
-          Notes on what I&apos;m building, breaking, and rethinking
-        </Subtitle>
-      </Header>
+      <SectionHeading
+        title="From the Notebook"
+        subtitle="Notes on what I'm building, breaking, and rethinking"
+      />
       <Posts>
         <PostList posts={posts} />
       </Posts>

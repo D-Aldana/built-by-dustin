@@ -69,10 +69,7 @@ export const HomePlateIcon = forwardRef(
               style={{ stopColor: "#f0ddc7", stopOpacity: 1 }}
               offset="0.00165563"
             />
-            <stop
-              style={{ stopColor: "#fefae0", stopOpacity: 0.498 }}
-              offset="1"
-            />
+            <stop style={{ stopColor: "#fefae0", stopOpacity: 1 }} offset="1" />
           </linearGradient>
 
           <linearGradient id="swatch15">

@@ -1,20 +1,15 @@
 "use client"
 import Link from "next/link"
 import styled from "@emotion/styled"
-import { breakpoints, layout } from "@/styles/theme"
+import { breakpoints, layout, radius, duskWash } from "@/styles/theme"
 
 const Page = styled.main`
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  /* the hero's cream wash works because its text sits mid-gradient; these pages
-     are text-left, so a soft olive glow keeps contrast even in the corner. */
+  /* same low sun as the hero, so the whole site is lit once from one place */
   background-color: ${({ theme }) => theme.background};
-  background-image: radial-gradient(
-    90% 60% at 10% 0%,
-    ${({ theme }) => `${theme.olive}55`} 0%,
-    transparent 62%
-  );
+  background-image: ${duskWash};
   padding-block: 3rem 5rem;
 `
 
@@ -36,7 +31,7 @@ const BackLink = styled(Link)`
   font-family: var(--font-montserrat), sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 
   &:hover {
     text-decoration: underline;
@@ -46,6 +41,7 @@ const BackLink = styled(Link)`
 
 const Title = styled.h1`
   font-size: 2.75rem;
+  font-weight: 600;
   line-height: 1.15;
   color: ${({ theme }) => theme.foreground};
   text-wrap: balance;
@@ -67,7 +63,7 @@ const Meta = styled.div`
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const Dot = styled.span`
@@ -85,25 +81,25 @@ const Tags = styled.div`
 `
 
 const Tag = styled.span`
-  background-color: ${({ theme }) => `${theme.bronze}1f`};
-  border: 1px solid ${({ theme }) => `${theme.bronze}70`};
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
+  border: 1px solid ${({ theme }) => `${theme.bronze}59`};
   color: ${({ theme }) => theme.bronze};
   padding: 0.1rem 0.45rem;
-  border-radius: 6px;
+  border-radius: ${radius.sm};
   font-size: 0.75rem;
   font-weight: 600;
 `
 
 const Rule = styled.hr`
   border: none;
-  border-top: 1px solid ${({ theme }) => `${theme.olive}80`};
+  border-top: 1px solid ${({ theme }) => theme.line};
   margin-block: 2rem;
 `
 
 /* Prose styles live on the wrapper: the MDX output is plain HTML, so there is
    no component map to keep in sync. */
 const Body = styled.article`
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.textMuted};
   font-family: var(--font-montserrat), sans-serif;
   font-size: 1.0625rem;
   line-height: 1.8;
@@ -160,7 +156,7 @@ const Body = styled.article`
   blockquote {
     border-left: 3px solid ${({ theme }) => theme.bronze};
     padding: 0.25rem 0 0.25rem 1.25rem;
-    color: ${({ theme }) => theme.oliveText};
+    color: ${({ theme }) => theme.textSubtle};
     font-style: italic;
   }
 
@@ -171,16 +167,16 @@ const Body = styled.article`
   code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.875em;
-    background-color: ${({ theme }) => `${theme.olive}40`};
-    border: 1px solid ${({ theme }) => `${theme.olive}80`};
+    background-color: ${({ theme }) => theme.surface};
+    border: 1px solid ${({ theme }) => theme.line};
     border-radius: 4px;
     padding: 0.1rem 0.3rem;
   }
 
   pre {
-    background-color: ${({ theme }) => `${theme.forest}`};
-    border: 1px solid ${({ theme }) => theme.olive};
-    border-radius: 0.5rem;
+    background-color: ${({ theme }) => theme.surface};
+    border: 1px solid ${({ theme }) => theme.line};
+    border-radius: ${radius.sm};
     padding: 1rem 1.15rem;
     overflow-x: auto;
   }
@@ -196,7 +192,7 @@ const Body = styled.article`
   img {
     max-width: 100%;
     height: auto;
-    border-radius: 0.5rem;
+    border-radius: ${radius.sm};
   }
 
   ${breakpoints.mobile} {
@@ -221,10 +217,10 @@ const Footer = styled.nav`
 
 const NavLink = styled(Link)`
   flex: 1;
-  border: 2px solid ${({ theme }) => theme.olive};
-  border-radius: 0.75rem;
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
   padding: 0.9rem 1.1rem;
-  background-color: ${({ theme }) => theme.forest};
+  background-color: ${({ theme }) => theme.surface};
   transition: border-color 0.25s ease;
 
   &:hover {
@@ -239,7 +235,7 @@ const NavDirection = styled.span`
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const NavTitle = styled.span`
@@ -248,7 +244,7 @@ const NavTitle = styled.span`
   font-family: var(--font-montserrat), sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
 `
 
 export const BlogPost = ({ post, previous, next, children }) => (

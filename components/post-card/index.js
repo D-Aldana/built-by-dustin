@@ -2,7 +2,7 @@
 import { forwardRef } from "react"
 import Link from "next/link"
 import styled from "@emotion/styled"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, radius, elevation } from "@/styles/theme"
 
 /* styled(Component) forwards every prop, so the layout flag is filtered out
    before it reaches the anchor. */
@@ -14,9 +14,9 @@ const Card = styled(Link, {
   gap: 0.6rem;
   height: 100%;
   padding: ${({ $roomy }) => ($roomy ? "1.75rem 2rem" : "1.25rem")};
-  border: 2px solid ${({ theme }) => theme.olive};
-  border-radius: 0.75rem;
-  background-color: ${({ theme }) => theme.forest};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.md};
+  background-color: ${({ theme }) => theme.surface};
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -24,7 +24,7 @@ const Card = styled(Link, {
 
   &:hover {
     border-color: ${({ theme }) => theme.bronze};
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: ${elevation.mid};
     transform: translateY(-3px);
   }
 
@@ -57,7 +57,7 @@ const Meta = styled.div`
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const Dot = styled.span`
@@ -72,7 +72,7 @@ const Title = styled.h3`
   font-size: ${({ $roomy }) => ($roomy ? "1.45rem" : "1.25rem")};
   font-weight: 700;
   line-height: 1.25;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
   text-wrap: balance;
 
   ${breakpoints.mobile} {
@@ -83,8 +83,7 @@ const Title = styled.h3`
 const Excerpt = styled.p`
   font-size: 0.95rem;
   line-height: 1.6;
-  color: ${({ theme }) => theme.primaryText};
-  opacity: 0.85;
+  color: ${({ theme }) => theme.textMuted};
   display: -webkit-box;
   -webkit-line-clamp: ${({ $roomy }) => ($roomy ? 4 : 3)};
   -webkit-box-orient: vertical;
@@ -100,11 +99,11 @@ const Tags = styled.div`
 `
 
 const Tag = styled.span`
-  background-color: ${({ theme }) => `${theme.bronze}1f`};
-  border: 1px solid ${({ theme }) => `${theme.bronze}70`};
+  background-color: ${({ theme }) => `${theme.bronze}1a`};
+  border: 1px solid ${({ theme }) => `${theme.bronze}59`};
   color: ${({ theme }) => theme.bronze};
   padding: 0.1rem 0.45rem;
-  border-radius: 6px;
+  border-radius: ${radius.sm};
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;

@@ -13,7 +13,7 @@ import {
   BookIcon,
 } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, radius, elevation, duskWash } from "@/styles/theme"
 
 const Container = styled.div`
   display: flex;
@@ -22,11 +22,8 @@ const Container = styled.div`
   justify-content: center;
   min-height: 100svh;
   position: relative;
-  background-image: linear-gradient(
-    to bottom right,
-    ${({ theme }) => theme.cream} 0%,
-    ${({ theme }) => theme.background} 50%
-  );
+  background-color: ${({ theme }) => theme.background};
+  background-image: ${duskWash};
   color: ${({ theme }) => theme.primaryText};
 `
 
@@ -56,34 +53,34 @@ const FlippedIconWrapper = styled.div`
 `
 
 const Name = styled.h1`
-  font-size: 4rem;
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.05;
   text-align: center;
   color: ${({ theme }) => theme.foreground};
 
   ${breakpoints.mobile} {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 `
 
+/* The one bright element on the page: chalk on the dirt, the way a line is
+   laid down on a field. Section headings echo it in a quieter key. */
 const StickerContainer = styled.div`
   display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0.75rem 2rem;
+  background-color: ${({ theme }) => theme.cream};
+  padding: 0.6rem 2rem 0.5rem;
   margin-bottom: 1.5rem;
-  transform: rotate(-1deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: ${({ theme }) => theme.cream};
+  transform: rotate(-1.25deg);
+  border-radius: ${radius.sm};
+  box-shadow: ${elevation.mid};
+  color: ${({ theme }) => theme.forest};
 `
 
 const StickerText = styled.p`
   font-family: var(--font-bebas) !important;
   font-size: 1.85rem;
-  letter-spacing: 0.125rem;
+  letter-spacing: 0.16em;
 
   ${breakpoints.mobile} {
     font-size: 1.5rem;
@@ -91,22 +88,23 @@ const StickerText = styled.p`
 `
 
 const Caption = styled.p`
-  font-size: 1.25rem;
-  font-weight: 500;
-  max-width: 44rem;
+  font-size: 1.1875rem;
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 40rem;
   text-align: center;
   padding: 0 1.5rem;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.textMuted};
 
   ${breakpoints.mobile} {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
   }
 `
 
 const RotatingTextWrapper = styled(BaseRotatingText)`
   display: inline-block;
   font-weight: 600;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.bronze};
   vertical-align: baseline;
   width: 7ch;
 `
@@ -118,32 +116,35 @@ const CTAContainer = styled.div`
   gap: 1rem;
 `
 
+/* Bronze is the page's only accent, so it marks the one action worth taking
+   first. Everything beside it is an outline. */
 const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.oliveText};
-  padding: 0.5rem 2rem;
-  background-color: ${(props) =>
-    props.primary ? props.theme.oliveSurface : "transparent"};
-  color: ${(props) =>
-    props.primary ? props.theme.cream : props.theme.oliveText};
+  border-radius: ${radius.pill};
+  border: 1px solid
+    ${({ theme, primary }) => (primary ? theme.bronze : theme.lineStrong)};
+  padding: 0.55rem 1.75rem;
+  background-color: ${({ theme, primary }) =>
+    primary ? theme.bronze : "transparent"};
+  color: ${({ theme, primary }) => (primary ? theme.forest : theme.chalk)};
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 4px 8px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: ${({ primary }) => (primary ? elevation.low : "none")};
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 
   &:hover {
-    background-color: ${(props) =>
-      props.primary ? props.theme.forest : props.theme.muted};
-    color: ${(props) => props.theme.cream};
-    transition: background-color 0.3s ease color 0.3s ease;
+    background-color: ${({ theme, primary }) =>
+      primary ? theme.bronzeLight : theme.surface};
+    border-color: ${({ theme }) => theme.bronze};
   }
 
   &:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
   }
 
   svg {
@@ -160,7 +161,7 @@ const SocialsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  color: ${({ theme }) => theme.olive};
+  color: ${({ theme }) => theme.textSubtle};
   margin-top: 2.5rem;
 `
 
@@ -317,7 +318,7 @@ export const Hero = ({
           transition={{ delay: 0.9, duration: 0.35 }}
         >
           <ContinueButton onClick={onContinue}>
-            <ChevronDownIcon color={theme.olive} width={32} height={32} />
+            <ChevronDownIcon color={theme.textSubtle} width={32} height={32} />
           </ContinueButton>
         </motion.div>
       </HeroContainer>

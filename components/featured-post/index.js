@@ -1,20 +1,15 @@
 "use client"
 import Link from "next/link"
 import styled from "@emotion/styled"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, radius, elevation } from "@/styles/theme"
 
 const Card = styled(Link)`
   display: block;
   width: 100%;
   padding: 2.5rem 2.75rem 2.25rem;
-  border: 2px solid ${({ theme }) => theme.olive};
-  border-radius: 1rem;
-  background-color: ${({ theme }) => theme.forest};
-  background-image: radial-gradient(
-    130% 150% at 100% 0%,
-    ${({ theme }) => `${theme.olive}40`} 0%,
-    transparent 62%
-  );
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.lg};
+  background-color: ${({ theme }) => theme.surface};
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease,
@@ -22,7 +17,7 @@ const Card = styled(Link)`
 
   &:hover {
     border-color: ${({ theme }) => theme.bronze};
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+    box-shadow: ${elevation.mid};
     transform: translateY(-3px);
   }
 
@@ -65,7 +60,7 @@ const Eyebrow = styled.div`
     content: "";
     flex: 1;
     height: 1px;
-    background-color: ${({ theme }) => `${theme.bronze}55`};
+    background-color: ${({ theme }) => theme.line};
   }
 `
 
@@ -86,8 +81,9 @@ const Head = styled.div`
 
 const Title = styled.h3`
   font-size: 2.75rem;
+  font-weight: 600;
   line-height: 1.08;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
   text-wrap: balance;
 
   ${breakpoints.mobile} {
@@ -99,8 +95,7 @@ const Excerpt = styled.p`
   font-family: var(--font-montserrat), sans-serif;
   font-size: 1.0625rem;
   line-height: 1.7;
-  color: ${({ theme }) => theme.primaryText};
-  opacity: 0.85;
+  color: ${({ theme }) => theme.textMuted};
   /* optical: drops the excerpt onto the headline's first baseline */
   margin-top: 0.4rem;
 
@@ -115,7 +110,7 @@ const Excerpt = styled.p`
 const StatLine = styled.div`
   display: grid;
   grid-template-columns: max-content max-content 1fr;
-  border-top: 1px solid ${({ theme }) => `${theme.bronze}55`};
+  border-top: 1px solid ${({ theme }) => theme.line};
   margin-top: 2.5rem;
   padding-top: 1rem;
 
@@ -130,7 +125,7 @@ const Stat = styled.div`
   ${({ $divider, theme }) =>
     $divider &&
     `
-      border-left: 1px solid ${theme.bronze}55;
+      border-left: 1px solid ${theme.line};
       padding-left: 1.75rem;
     `}
 
@@ -145,7 +140,7 @@ const Stat = styled.div`
       `
         grid-column: 1 / -1;
         border-left: none;
-        border-top: 1px solid ${theme.bronze}55;
+        border-top: 1px solid ${theme.line};
         margin-top: 0.85rem;
         padding-left: 0;
         padding-top: 0.85rem;
@@ -159,7 +154,7 @@ const StatLabel = styled.div`
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.oliveText};
+  color: ${({ theme }) => theme.textSubtle};
 `
 
 const StatValue = styled.div`
@@ -168,7 +163,7 @@ const StatValue = styled.div`
   line-height: 1.2;
   letter-spacing: 0.05em;
   font-variant-numeric: tabular-nums;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
   margin-top: 0.2rem;
 `
 

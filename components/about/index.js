@@ -4,8 +4,9 @@ import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { breakpoints, container } from "@/styles/theme"
+import { breakpoints, container, radius, elevation } from "@/styles/theme"
 import { Base } from "@/components/base"
+import { SectionHeading } from "@/components/section-heading"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
 import { BeyondTheKeyboard } from "@/components/beyond-the-keyboard"
@@ -22,7 +23,7 @@ const WaveBackground = styled.div`
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.12;
 
   background-image:
     url("/images/wave.svg"), url("/images/wave.svg"), url("/images/wave.svg"),
@@ -55,48 +56,9 @@ const Container = styled.div`
   overflow: hidden;
 `
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+const Header = styled(SectionHeading)`
   margin-top: 2rem;
-  width: 100%;
-`
-
-const StickerContainer = styled.div`
-  display: inline-block;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  padding: 0 2rem;
-  margin-bottom: 1.5rem;
-  transform: rotate(2deg);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
-  border: none;
-  color: ${({ theme }) => theme.cream};
-`
-
-const StickerText = styled.h2`
-  font-size: 3.25rem;
-  font-weight: 600;
-  letter-spacing: 0.15rem;
-
-  ${breakpoints.mobile} {
-    font-size: 2.25rem;
-    letter-spacing: 0.1rem;
-  }
-`
-
-const Subtitle = styled.p`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: ${({ theme }) => theme.primaryText};
-  margin-top: 1.25rem;
-  text-align: center;
+  margin-bottom: 1rem;
 `
 
 const ContentGrid = styled.div`
@@ -141,33 +103,24 @@ const ImageContainer = styled.div`
   width: 100%;
   height: 650px;
   position: relative;
-  border-radius: 1.5rem;
+  border-radius: ${radius.lg};
   padding: 5px;
-  background: radial-gradient(
-    circle at top left,
-    ${({ theme }) => theme.olive},
-    ${({ theme }) => theme.rust}
-  );
-
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
-  position: relative;
+  background-color: ${({ theme }) => theme.surfaceRaised};
+  border: 1px solid ${({ theme }) => theme.lineStrong};
+  box-shadow: ${elevation.mid};
   z-index: 1;
 `
 
-const GradientBar = styled.div`
-  width: 3rem;
-  height: 0.25rem;
-  border-radius: 9999px;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.rust},
-    ${({ theme }) => theme.bronze}
-  );
+const AccentRule = styled.div`
+  width: 2.25rem;
+  height: 2px;
+  border-radius: ${radius.pill};
+  background-color: ${({ theme }) => theme.bronze};
 `
 
 const CardTitle = styled.h3`
-  font-size: ${(props) => (props.small ? "1.25rem" : "1.5rem")};
-  font-weight: 700;
+  font-size: ${(props) => (props.small ? "1.25rem" : "1.4rem")};
+  font-weight: 600;
 `
 
 const CardHeader = styled.div`
@@ -179,11 +132,10 @@ const CardHeader = styled.div`
 
 const MyStory = styled(SpotlightCard)`
   grid-area: myStory;
-  border-radius: 1.5rem;
-  border: 2px solid ${({ theme }) => theme.olive};
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+  border-radius: ${radius.lg};
+  border: 1px solid ${({ theme }) => theme.line};
+  background-color: ${({ theme }) => theme.surface};
   padding: 2rem;
-  background: transparent;
 `
 
 const StoryText = styled.div`
@@ -195,16 +147,11 @@ const StoryText = styled.div`
 
 const StatsContainer = styled(SpotlightCard)`
   grid-area: stats;
-  background: radial-gradient(
-    circle at bottom left,
-    ${({ theme }) => theme.oliveSurface},
-    ${({ theme }) => theme.forest}
-  );
-  border: 4px solid ${({ theme }) => theme.olive};
-  border-radius: 1.5rem;
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
+  background-color: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.line};
+  border-radius: ${radius.lg};
   padding: 2rem;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.chalk};
 `
 
 const StatsGrid = styled.div`
@@ -222,10 +169,10 @@ const Stat = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.muted};
-  padding: 0.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid transparent;
+  background-color: ${({ theme }) => theme.surfaceRaised};
+  padding: 0.75rem 0.5rem;
+  border-radius: ${radius.md};
+  border: 1px solid ${({ theme }) => theme.line};
   transition: border-color 0.3s ease-in-out;
 
   &:hover {
@@ -234,25 +181,26 @@ const Stat = styled.div`
 `
 
 const StatNumber = styled.p`
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--font-bebas), sans-serif;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
   color: ${({ theme }) => theme.bronze};
 `
 
 const StatDesc = styled.p`
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
   text-align: center;
-  color: ${({ theme }) => theme.primaryText};
+  color: ${({ theme }) => theme.textMuted};
 `
 
 const FunFacts = styled(SpotlightCard)`
   grid-area: funFacts;
-  border-radius: 1.5rem;
-  border: 2px solid ${({ theme }) => theme.olive};
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+  border-radius: ${radius.lg};
+  border: 1px solid ${({ theme }) => theme.line};
+  background-color: ${({ theme }) => theme.surface};
   padding: 2rem;
-  background: transparent;
   display: flex;
   flex-direction: column;
 `
@@ -273,15 +221,16 @@ const FactItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 0.5rem;
-  background: ${({ theme }) => theme.muted};
+  border-radius: ${radius.sm};
+  background-color: ${({ theme }) => theme.surfaceRaised};
   height: 100%;
   padding: 0.75rem;
 `
 
 const FactText = styled.p`
   font-size: 0.875rem;
-  font-weight: 500;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.textMuted};
 `
 
 const FolderContainer = styled(ImageFolder)`
@@ -415,14 +364,11 @@ export const About = forwardRef((props, ref) => {
     <Container ref={ref}>
       <WaveBackground />
       <Base title="1ST" ref={baseRef} />
-      <Header ref={headerRef}>
-        <StickerContainer>
-          <StickerText>About Me</StickerText>
-        </StickerContainer>
-        <Subtitle>
-          Beyond the code: who am I when I&apos;m not building applications
-        </Subtitle>
-      </Header>
+      <Header
+        ref={headerRef}
+        title="About Me"
+        subtitle="Beyond the code: who I am when I'm not building applications"
+      />
       <ContentGrid>
         <ImageContainer ref={photoRef}>
           <Image
@@ -450,7 +396,7 @@ export const About = forwardRef((props, ref) => {
         </ImageContainer>
         <MyStory ref={storyRef}>
           <CardHeader>
-            <GradientBar />
+            <AccentRule />
             <CardTitle>My Story</CardTitle>
           </CardHeader>
           <StoryText>{myStoryContent.content}</StoryText>
@@ -458,6 +404,7 @@ export const About = forwardRef((props, ref) => {
 
         <StatsContainer ref={statsRef}>
           <CardHeader>
+            <AccentRule />
             <CardTitle>Quick Stats</CardTitle>
           </CardHeader>
           <StatsGrid>
@@ -481,50 +428,38 @@ export const About = forwardRef((props, ref) => {
         </StatsContainer>
         <FunFacts ref={factsRef}>
           <CardHeader>
-            <GradientBar />
+            <AccentRule />
             <CardTitle small>Fun Facts</CardTitle>
           </CardHeader>
           <FactsGrid>
-            <SpotlightCard>
-              <FactItem>
-                ⚾<FactText>Have 7 career home runs</FactText>
-              </FactItem>
-            </SpotlightCard>
-            <SpotlightCard>
-              <FactItem>
-                ✈️<FactText>Visited 10 countries</FactText>
-              </FactItem>
-            </SpotlightCard>
-            <SpotlightCard>
-              <FactItem>
-                🎥
-                <FactText>
-                  Have a YouTube video with over 1.8 million views
-                </FactText>
-              </FactItem>
-            </SpotlightCard>
-            <SpotlightCard>
-              <FactItem>
-                🌎
-                <FactText>
-                  Know every country, its flag, and where it is on the map
-                </FactText>
-              </FactItem>
-            </SpotlightCard>
-            <SpotlightCard>
-              <FactItem>
-                🪂
-                <FactText>Skydived at 13,000 feet in Bologna, Italy</FactText>
-              </FactItem>
-            </SpotlightCard>
-            <SpotlightCard>
-              <FactItem>
-                🎷
-                <FactText>
-                  Played saxophone at a famous jazz club in Havana, Cuba
-                </FactText>
-              </FactItem>
-            </SpotlightCard>
+            <FactItem>
+              ⚾<FactText>Have 7 career home runs</FactText>
+            </FactItem>
+            <FactItem>
+              ✈️<FactText>Visited 10 countries</FactText>
+            </FactItem>
+            <FactItem>
+              🎥
+              <FactText>
+                Have a YouTube video with over 1.8 million views
+              </FactText>
+            </FactItem>
+            <FactItem>
+              🌎
+              <FactText>
+                Know every country, its flag, and where it is on the map
+              </FactText>
+            </FactItem>
+            <FactItem>
+              🪂
+              <FactText>Skydived at 13,000 feet in Bologna, Italy</FactText>
+            </FactItem>
+            <FactItem>
+              🎷
+              <FactText>
+                Played saxophone at a famous jazz club in Havana, Cuba
+              </FactText>
+            </FactItem>
           </FactsGrid>
         </FunFacts>
       </ContentGrid>

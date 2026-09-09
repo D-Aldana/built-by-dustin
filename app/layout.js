@@ -1,11 +1,14 @@
-import { Playfair_Display, Montserrat, Bebas_Neue } from "next/font/google"
+import { Fraunces, Montserrat, Bebas_Neue } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const playfair = Playfair_Display({
+/* Playfair's hairlines shimmered against the dark ground at display sizes.
+   Fraunces carries the same warmth with far less stroke contrast; SOFT rounds
+   the terminals and opsz keeps the small sizes from going spindly. */
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["400", "500", "700"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK", "opsz"],
 })
 
 const montserrat = Montserrat({
@@ -90,7 +93,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/images/icon.png" />
       </head>
       <body
-        className={`${playfair.variable} ${montserrat.variable} ${bebas.variable}`}
+        className={`${fraunces.variable} ${montserrat.variable} ${bebas.variable}`}
       >
         <Analytics />
         {children}
