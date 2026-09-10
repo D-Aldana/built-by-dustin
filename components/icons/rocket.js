@@ -2,6 +2,7 @@ import { forwardRef, useRef, useEffect } from "react"
 import { gsap } from "gsap"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger)
 
@@ -12,6 +13,7 @@ export const RocketIcon = forwardRef((props, ref) => {
     height = 24,
     duration = 2,
     delay = 0,
+    fly = false,
   } = props
 
   const iconRef = useRef(null)
@@ -38,6 +40,40 @@ export const RocketIcon = forwardRef((props, ref) => {
       },
     )
   }, [duration, delay])
+
+  useEffect(() => {
+    const element = iconRef.current
+    if (!fly || !element || prefersReducedMotion()) return
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 2,
+      delay: delay + duration,
+      scrollTrigger: {
+        trigger: element,
+        start: "top 90%",
+        toggleActions: "play pause resume pause",
+      },
+    })
+
+    tl.to(element, {
+      x: 160,
+      y: -160,
+      opacity: 0,
+      duration: 1.1,
+      ease: "power2.in",
+    })
+      .set(element, { x: -160, y: 160 })
+      .to(element, {
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        ease: "power2.out",
+      })
+
+    return () => tl.kill()
+  }, [fly, delay, duration])
 
   return (
     <svg

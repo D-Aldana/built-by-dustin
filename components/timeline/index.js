@@ -13,6 +13,7 @@ import {
   BulbIcon,
   CalendarIcon,
   InputIcon,
+  RocketIcon,
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { SectionHeading } from "@/components/section-heading"
@@ -210,6 +211,21 @@ export const Timeline = forwardRef((props, ref) => {
 
   const items = [
     {
+      type: "Open to Work",
+      title: "Looking for My Next Role",
+      company: "Full-Stack / Product Engineering",
+      date: "Aug 2026 - Present",
+      icon: WorkIcon,
+      bigIcon: RocketIcon,
+      bigIconProps: { fly: true },
+      desc: [
+        "Open to full-stack and product engineering roles, remote or on Vancouver Island",
+        "Building with React, Next.js, React Native, Python/Django, and AI-powered product features",
+        "Writing about the job search and shipping side projects while I look",
+        "If you are hiring or know a team that is, I would love to hear from you",
+      ],
+    },
+    {
       type: "Work",
       title: "Full-Stack Software Developer",
       company: "Input Logic",
@@ -400,6 +416,7 @@ export const Timeline = forwardRef((props, ref) => {
                     height={180}
                     width={180}
                     color={theme.lineStrong}
+                    {...item.bigIconProps}
                   />
                 </IconWrapper>
               )}
