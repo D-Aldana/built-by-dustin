@@ -9,7 +9,6 @@ import { Base } from "@/components/base"
 import { SectionHeading } from "@/components/section-heading"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
-import { BeyondTheKeyboard } from "@/components/beyond-the-keyboard"
 import { MyStory as myStoryContent } from "@/util/consts"
 import { prefersReducedMotion } from "@/util/motion"
 
@@ -409,20 +408,20 @@ export const About = forwardRef((props, ref) => {
           </CardHeader>
           <StatsGrid>
             <Stat>
-              <StatNumber>4+</StatNumber>
-              <StatDesc>Years of coding 💻</StatDesc>
+              <StatNumber>6+</StatNumber>
+              <StatDesc>Clients shipped for 🤝</StatDesc>
             </Stat>
             <Stat>
-              <StatNumber>6</StatNumber>
-              <StatDesc>Apps live in production 🚀</StatDesc>
+              <StatNumber>1</StatNumber>
+              <StatDesc>Product shipped solo 📱</StatDesc>
+            </Stat>
+            <Stat>
+              <StatNumber>1</StatNumber>
+              <StatDesc>Research paper published 📄</StatDesc>
             </Stat>
             <Stat>
               <StatNumber>32</StatNumber>
               <StatDesc>Estimated open tabs 🧠</StatDesc>
-            </Stat>
-            <Stat>
-              <StatNumber>0</StatNumber>
-              <StatDesc>Merge conflicts (this week) 😅</StatDesc>
             </Stat>
           </StatsGrid>
         </StatsContainer>
@@ -463,7 +462,6 @@ export const About = forwardRef((props, ref) => {
           </FactsGrid>
         </FunFacts>
       </ContentGrid>
-      <BeyondTheKeyboard />
     </Container>
   )
 })

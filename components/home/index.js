@@ -12,6 +12,7 @@ import {
   Projects,
   Blog,
   Timeline,
+  BeyondTheKeyboard,
   ContactMe,
 } from "@/components"
 
@@ -78,6 +79,7 @@ export const Home = ({ posts = [], totalPosts = 0 }) => {
           <Projects ref={projectsRef} />
           <Blog ref={blogRef} posts={posts} totalPosts={totalPosts} />
           <Timeline ref={timelineRef} />
+          <BeyondTheKeyboard />
           <ContactMe ref={contactRef} />
         </Main>
       </MotionConfig>
