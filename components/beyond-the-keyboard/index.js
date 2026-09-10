@@ -14,17 +14,17 @@ import {
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { SectionHeading } from "@/components/section-heading"
-import { breakpoints, radius } from "@/styles/theme"
+import { breakpoints, container, radius } from "@/styles/theme"
 import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   padding-block: 2rem;
 `
 

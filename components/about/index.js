@@ -9,7 +9,6 @@ import { Base } from "@/components/base"
 import { SectionHeading } from "@/components/section-heading"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
-import { BeyondTheKeyboard } from "@/components/beyond-the-keyboard"
 import { MyStory as myStoryContent } from "@/util/consts"
 import { prefersReducedMotion } from "@/util/motion"
 
@@ -463,7 +462,6 @@ export const About = forwardRef((props, ref) => {
           </FactsGrid>
         </FunFacts>
       </ContentGrid>
-      <BeyondTheKeyboard />
     </Container>
   )
 })
