@@ -10,6 +10,7 @@ import {
   BackendIcon,
   DesignIcon,
   RocketIcon,
+  SparklesIcon,
 } from "@/components/icons"
 import { SectionHeading } from "@/components/section-heading"
 import { breakpoints, container, radius } from "@/styles/theme"
@@ -50,13 +51,27 @@ const Header = styled(SectionHeading)`
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   gap: 2rem;
   width: 100%;
+
+  /* three cards per row, with the last two centered underneath */
+  > * {
+    grid-column: span 2;
+  }
+
+  > *:nth-last-of-type(2) {
+    grid-column: 2 / span 2;
+  }
 
   ${breakpoints.mobile} {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+
+    > *,
+    > *:nth-last-of-type(2) {
+      grid-column: auto;
+    }
   }
 `
 
@@ -171,7 +186,9 @@ export const SkillsArsenal = forwardRef((props, ref) => {
             <SkillPill>Next.js</SkillPill>
             <SkillPill>Expo</SkillPill>
             <SkillPill>Javascript/Typescript</SkillPill>
+            <SkillPill>Tailwind CSS</SkillPill>
             <SkillPill>GSAP</SkillPill>
+            <SkillPill>Framer Motion</SkillPill>
           </SkillsList>
         </SkillCard>
         <SkillCard>
@@ -180,15 +197,35 @@ export const SkillsArsenal = forwardRef((props, ref) => {
           <SkillsList>
             <SkillPill>Python</SkillPill>
             <SkillPill>Django</SkillPill>
+            <SkillPill>Django REST Framework</SkillPill>
+            <SkillPill>Flask</SkillPill>
             <SkillPill>Node.js</SkillPill>
             <SkillPill>PostgreSQL</SkillPill>
+            <SkillPill>Supabase</SkillPill>
             <SkillPill>MongoDB</SkillPill>
             <SkillPill>Express.js</SkillPill>
             <SkillPill>Redis</SkillPill>
           </SkillsList>
         </SkillCard>
         <SkillCard>
-          <RocketIcon width={48} height={48} color={theme.rust} delay={0.55} />
+          <SparklesIcon
+            width={48}
+            height={48}
+            color={theme.rust}
+            delay={0.55}
+          />
+          <SkillsTitle>AI Tools</SkillsTitle>
+          <SkillsList>
+            <SkillPill>Claude API</SkillPill>
+            <SkillPill>Claude Code</SkillPill>
+            <SkillPill>Model Routing</SkillPill>
+            <SkillPill>Prompt Caching</SkillPill>
+            <SkillPill>Structured Outputs</SkillPill>
+            <SkillPill>Agent Workflows</SkillPill>
+          </SkillsList>
+        </SkillCard>
+        <SkillCard>
+          <RocketIcon width={48} height={48} color={theme.rust} delay={0.75} />
           <SkillsTitle>Tools</SkillsTitle>
           <SkillsList>
             <SkillPill>Git</SkillPill>
@@ -202,7 +239,7 @@ export const SkillsArsenal = forwardRef((props, ref) => {
           </SkillsList>
         </SkillCard>
         <SkillCard>
-          <DesignIcon width={48} height={48} color={theme.rust} delay={0.75} />
+          <DesignIcon width={48} height={48} color={theme.rust} delay={0.95} />
           <SkillsTitle>Design</SkillsTitle>
           <SkillsList>
             <SkillPill>Figma</SkillPill>
