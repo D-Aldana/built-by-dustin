@@ -1,0 +1,87 @@
+---
+title: "I Wasn't Getting Better at Chess, So I Built My Own Coach"
+date: "2026-09-29"
+excerpt: "My chess rating had been stagnant, and reviewing one game at a time was not showing me what to work on. I built Blundr to find the patterns across my games and turn them into a practical study plan."
+tags: ["Projects", "Chess", "Software Engineering", "AI"]
+draft: false
+---
+
+My chess rating had been stagnant for a few months. The reason wasn't a mystery. I was playing, but I wasn't putting much time into studying how to get better.
+
+Part of the problem was that studying felt too open-ended. I could review a game and see where I had made a bad move, but that didn't necessarily tell me what I should work on next. On the free version of Chess.com, I could only review one game per day. Even when I did review a game, I was still looking at one result in isolation.
+
+I didn't need another tool to tell me that a move was a blunder. I wanted something that could look across several games and tell me whether the same kinds of mistakes kept happening.
+
+That became [Blundr](https://github.com/D-Aldana/blundr), a free tool that analyzes a player's 20 most recent Chess.com games and recommends a few specific things to practice.
+
+<video controls playsInline preload="metadata" aria-label="A demonstration of Blundr analyzing a Chess.com player and producing a weakness report">
+  <source src="/videos/blog/blundr-demo.mp4" type="video/mp4" />
+  Your browser does not support embedded videos.
+</video>
+
+## Looking for patterns instead of individual mistakes
+
+Blundr starts with a Chess.com username and a time control. It fetches the player's 20 most recent bullet, blitz, or rapid games and analyzes each one with Stockfish.
+
+Instead of returning another move-by-move review, it groups what happened into four areas:
+
+- Tactical awareness
+- Endgame technique
+- Time management
+- Converting winning positions
+
+The goal is to answer a different question from a normal game review. Not "where did I go wrong in this game?" but "what keeps going wrong across my games?"
+
+That difference matters to me because I am not trying to follow an intensive chess study plan. I wanted a quick way to find the parts of my game that deserved attention. If the report could give me one or two concrete changes to try, that was enough to make my practice more useful.
+
+## Turning engine output into useful advice
+
+Stockfish can evaluate a position, but an evaluation by itself is not coaching. Blundr still has to decide which changes in evaluation are meaningful and whether they form a pattern.
+
+The backend turns every analyzed move into a row of data that includes the evaluation before and after the move, the number of pieces left, the move number, and the player's remaining clock time. Deterministic classifiers then use that data to score the four categories.
+
+For example, the time-management classifier compares move quality while the player has plenty of time with move quality when the clock is running low. The endgame classifier looks for meaningful mistakes in positions with 12 or fewer pieces. A category also needs enough evidence before Blundr will score it. If there are too few relevant positions, the report says there is not enough data instead of pretending to be certain.
+
+Getting those scores into a believable range took more than choosing thresholds that sounded reasonable. The first thresholds were far too strict. Every player looked terrible at endgames, including one of the strongest players in the calibration sample.
+
+I corrected that by running the pipeline across 15 Chess.com accounts covering a wide range of ratings, with a couple of elite players as a check. The current thresholds come from how often those weaknesses appeared in real games. It is still a lightweight diagnosis based on 20 games, but it is grounded in something better than an arbitrary number I picked while writing the classifier.
+
+## Keeping AI away from the diagnosis
+
+Blundr does use an AI model, but it does not decide what a player's weaknesses are.
+
+The factual parts of the report come from Stockfish and the deterministic classifiers. The model only receives the finished scores, evidence, and recommendations, then turns them into a short coaching paragraph. It never sees the raw games.
+
+I also added a validator that checks the paragraph for numbers or details that were not in the facts provided to the model. If the summary introduces an unsupported claim, Blundr retries it once and then falls back to a paragraph assembled directly from the report data.
+
+That boundary felt important. A slightly different sentence is harmless. Inventing an opening problem or a tactical pattern that the analysis never found would make the whole report less trustworthy.
+
+The rest of the application is intentionally small. The frontend is React and TypeScript, the API is built with FastAPI, and the analysis runs through Stockfish and `python-chess`. There are no user accounts and no database. You enter a username, wait for the analysis, and get a report.
+
+## What Blundr found in my games
+
+When I ran Blundr against my own games, it pointed to two problems: my endgames and my time management.
+
+The time-management advice was immediately useful. One recommendation was to play familiar opening moves faster so I could save more of my clock for difficult positions later in the game. That was small enough to remember while I was playing, unlike a vague goal to "manage my time better."
+
+I started paying more attention to those areas, and over the next week I gained almost 100 rating points. The screenshot below captures part of that run, with my bullet rating reaching 1295.
+
+![My Chess.com bullet rating rising to 1295 after I started applying Blundr's recommendations](/images/blog/blundr-bullet-rating-progress.png)
+
+I don't think one week of results proves that Blundr can add 100 points to anyone's rating. I was also playing more and being more deliberate about how I used my time. Ratings naturally move around, especially in bullet.
+
+What I can say is that the report gave me a short list of things I could actually try. Instead of telling myself I needed to study chess more, I could focus on speeding up the opening, protecting my clock, and spending some time on endgames.
+
+## Making improvement easier to start
+
+Blundr is not a replacement for studying. It cannot explain every bad decision, and 20 games are not enough to make a complete judgment about a player. If I want to improve more seriously, I will still need to review positions, practice endgames, and put in the time.
+
+For me, the useful part is that it reduces the effort required to begin. I don't have to design a study plan before I can work on something. I can look at the patterns in games I was already playing and get a reasonable direction.
+
+That is what I wanted from the app. I was not looking for more analysis. I was looking for a small amount of specific advice that I would actually use.
+
+## Would you try Blundr?
+
+Right now, Blundr is a project I run myself, but I am considering putting it online so other people can try it with their own Chess.com games. Before I spend more time turning it into a public product, I would like to know whether people would actually find it useful.
+
+If you would try Blundr, or there is something you would want it to include, send me a message. If enough people are interested, I would like to make it available for anyone to use.
