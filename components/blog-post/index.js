@@ -195,6 +195,16 @@ const Body = styled.article`
     border-radius: ${radius.sm};
   }
 
+  video {
+    display: block;
+    width: min(100%, 32rem);
+    height: auto;
+    margin: 1.5rem auto 0;
+    border: 1px solid ${({ theme }) => theme.line};
+    border-radius: ${radius.sm};
+    background-color: #000;
+  }
+
   ${breakpoints.mobile} {
     font-size: 1rem;
 
