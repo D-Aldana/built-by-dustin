@@ -340,11 +340,12 @@ export const ProjectCard = forwardRef(
         )
       }
       if (link) {
+        const external = /^https?:/.test(link)
         return (
           <PrimaryLink
             href={link}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             aria-label={`${linkText}: ${title}`}
           >
             {linkText} &rarr;
