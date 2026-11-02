@@ -230,7 +230,7 @@ export const Hero = ({
           <Caption>
             Creating digital{" "}
             <RotatingTextWrapper
-              texts={["solutions", "products", "odysseys"]}
+              texts={["solutions", "products"]}
               splitBy="characters"
               staggerFrom="last"
               initial={{ y: "-120%", opacity: 0 }}
