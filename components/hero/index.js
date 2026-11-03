@@ -133,9 +133,9 @@ const Button = styled.button`
   cursor: pointer;
   box-shadow: ${({ primary }) => (primary ? elevation.low : "none")};
   transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     background-color: ${({ theme, primary }) =>
@@ -168,7 +168,7 @@ const SocialsContainer = styled.div`
 const SocialLink = styled(Link)`
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     color: ${({ color }) => color};

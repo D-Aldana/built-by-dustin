@@ -38,8 +38,8 @@ const AllPostsLink = styled(Link)`
   font-weight: 600;
   color: ${({ theme }) => theme.chalk};
   transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease;
+    background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     background-color: ${({ theme }) => theme.surface};

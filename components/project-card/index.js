@@ -38,8 +38,8 @@ const CardFace = styled.div`
   display: flex;
   flex-direction: column;
   transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 `
 
 const CardFront = styled(CardFace)`
@@ -174,9 +174,9 @@ const DetailsButton = styled.button`
   border: 1px solid ${({ theme }) => theme.lineStrong};
   color: ${({ theme }) => theme.textSubtle};
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
+    background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     border-color: ${({ theme }) => theme.bronze};
@@ -245,8 +245,8 @@ const StoreBadge = styled(Link)`
   align-items: center;
   justify-content: center;
   transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 0.9;
 
   &:hover {

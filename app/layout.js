@@ -95,6 +95,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${fraunces.variable} ${montserrat.variable} ${bebas.variable}`}
       >
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <Analytics />
         {children}
       </body>

@@ -7,7 +7,7 @@
 }
 
 .folder {
-  transition: all 0.2s ease-in;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: pointer;
   z-index: 1;
 }
@@ -96,7 +96,7 @@
   height: 80%;
   background: var(--paper-1);
   border-radius: 10px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .paper:nth-child(2) {
@@ -119,7 +119,7 @@
   background: var(--folder-color);
   border-radius: 5px 10px 10px 10px;
   transform-origin: bottom;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .right {

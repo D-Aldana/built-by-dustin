@@ -78,7 +78,7 @@ const Empty = styled.p`
 `
 
 export const BlogPage = ({ posts = [] }) => (
-  <Page>
+  <Page id="main-content">
     <Inner>
       <BackLink href="/">&larr; Back home</BackLink>
       {posts.length > 0 && (

@@ -85,8 +85,8 @@ const SkillCard = styled(SpotlightCard)`
   border-radius: ${radius.md};
   gap: 0.75rem;
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     transform: translateY(-2px);

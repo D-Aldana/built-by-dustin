@@ -231,7 +231,7 @@ const NavLink = styled(Link)`
   border-radius: ${radius.md};
   padding: 0.9rem 1.1rem;
   background-color: ${({ theme }) => theme.surface};
-  transition: border-color 0.25s ease;
+  transition: border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 
   &:hover {
     border-color: ${({ theme }) => theme.bronze};
@@ -258,7 +258,7 @@ const NavTitle = styled.span`
 `
 
 export const BlogPost = ({ post, previous, next, children }) => (
-  <Page>
+  <Page id="main-content">
     <Inner>
       <BackLink href="/blog">&larr; All posts</BackLink>
       <Title>{post.title}</Title>

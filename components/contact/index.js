@@ -84,23 +84,47 @@ const FormInput = styled.input`
   width: 100%;
   padding: 0.6rem 0.75rem;
   background-color: ${({ theme }) => theme.background};
-  border: 1px solid ${({ theme }) => theme.lineStrong};
+  border: 1px solid
+    ${({ theme, $invalid }) =>
+      $invalid ? theme.destructive : theme.lineStrong};
   border-radius: ${radius.sm};
   font-family: var(--font-montserrat), sans-serif;
   font-size: 1rem;
-  margin-bottom: 1.25rem;
   color: ${({ theme }) => theme.chalk};
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   resize: vertical;
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.bronze};
+    border-color: ${({ theme, $invalid }) =>
+      $invalid ? theme.destructive : theme.bronze};
   }
 
   &::placeholder {
     color: ${({ theme }) => theme.textSubtle};
   }
+`
+
+const FieldGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+`
+
+const FieldError = styled.p`
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.destructive};
+  margin-top: 0.4rem;
+`
+
+const FormStatus = styled.p`
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.75rem;
+  color: ${({ theme, $tone }) =>
+    $tone === "error" ? theme.destructive : theme.textMuted};
 `
 
 export const SubmitButton = styled.button`
@@ -111,7 +135,7 @@ export const SubmitButton = styled.button`
   white-space: nowrap;
   font-size: 1rem;
   font-weight: 700;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   height: 2.75rem;
   width: 100%;
   border-radius: ${radius.pill};
@@ -182,7 +206,7 @@ const ContactCard = styled(SpotlightCard)`
   background-color: ${({ theme }) => theme.surface};
   border: 1px solid ${({ theme }) => theme.line};
   border-radius: ${radius.md};
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   &:hover {
     border-color: ${({ theme }) => theme.bronze};
   }
@@ -389,13 +413,18 @@ export const ContactMe = forwardRef((props, ref) => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm()
+  const [submitError, setSubmitError] = useState(null)
 
   const onSubmit = async (data) => {
+    setSubmitError(null)
     try {
       await sendEmail(data)
       reset()
     } catch (err) {
       console.error(err)
+      setSubmitError(
+        "Something went wrong sending your message. Please try again or email me directly.",
+      )
     }
   }
 
@@ -447,40 +476,75 @@ export const ContactMe = forwardRef((props, ref) => {
             </StatusIndicator>
           </AvailabilityBadge>
         </ContactDetails>
-        <ContactForm ref={rightSideRef} onSubmit={handleSubmit(onSubmit)}>
-          <FormLabel htmlFor="name">Your Name</FormLabel>
-          <FormInput
-            type="text"
-            id="name"
-            {...register("name", { required: "Name is required" })}
-          />
+        <ContactForm
+          ref={rightSideRef}
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
+          <FieldGroup>
+            <FormLabel htmlFor="name">Your Name</FormLabel>
+            <FormInput
+              type="text"
+              id="name"
+              $invalid={!!errors.name}
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
+              {...register("name", { required: "Name is required" })}
+            />
+            {errors.name && (
+              <FieldError id="name-error">{errors.name.message}</FieldError>
+            )}
+          </FieldGroup>
 
-          <FormLabel htmlFor="email">Email Address</FormLabel>
-          <FormInput
-            type="email"
-            id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                message: "Email is not valid",
-              },
-            })}
-          />
+          <FieldGroup>
+            <FormLabel htmlFor="email">Email Address</FormLabel>
+            <FormInput
+              type="email"
+              id="email"
+              $invalid={!!errors.email}
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                  message: "Email is not valid",
+                },
+              })}
+            />
+            {errors.email && (
+              <FieldError id="email-error">{errors.email.message}</FieldError>
+            )}
+          </FieldGroup>
 
-          <FormLabel htmlFor="message">Message</FormLabel>
-          <FormInput
-            as="textarea"
-            id="message"
-            rows={4}
-            placeholder="Your message here..."
-            {...register("message", { required: "Message is required" })}
-          />
+          <FieldGroup>
+            <FormLabel htmlFor="message">Message</FormLabel>
+            <FormInput
+              as="textarea"
+              id="message"
+              rows={4}
+              placeholder="Your message here..."
+              $invalid={!!errors.message}
+              aria-invalid={!!errors.message}
+              aria-describedby={errors.message ? "message-error" : undefined}
+              {...register("message", { required: "Message is required" })}
+            />
+            {errors.message && (
+              <FieldError id="message-error">
+                {errors.message.message}
+              </FieldError>
+            )}
+          </FieldGroup>
 
           <SubmitButton type="submit" disabled={isSubmitting}>
             <AirplaneIcon width={18} height={18} />
             {isSubmitting ? "Sending..." : "Send Message"}
           </SubmitButton>
+          {submitError && (
+            <FormStatus role="alert" $tone="error">
+              {submitError}
+            </FormStatus>
+          )}
         </ContactForm>
       </ContactContent>
       <motion.div

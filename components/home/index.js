@@ -55,7 +55,7 @@ export const Home = ({ posts = [], totalPosts = 0 }) => {
   return (
     <ThemeProvider theme={currentTheme}>
       <MotionConfig reducedMotion="user">
-        <Main>
+        <Main id="main-content">
           {/* <button
           style={{
             position: "fixed",
