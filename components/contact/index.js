@@ -492,9 +492,6 @@ export const ContactMe = forwardRef((props, ref) => {
               aria-describedby={errors.name ? "name-error" : undefined}
               {...register("name", { required: "Name is required" })}
             />
-            {errors.name && (
-              <FieldError id="name-error">{errors.name.message}</FieldError>
-            )}
           </FieldGroup>
 
           <FieldGroup>
@@ -513,9 +510,6 @@ export const ContactMe = forwardRef((props, ref) => {
                 },
               })}
             />
-            {errors.email && (
-              <FieldError id="email-error">{errors.email.message}</FieldError>
-            )}
           </FieldGroup>
 
           <FieldGroup>
@@ -530,11 +524,6 @@ export const ContactMe = forwardRef((props, ref) => {
               aria-describedby={errors.message ? "message-error" : undefined}
               {...register("message", { required: "Message is required" })}
             />
-            {errors.message && (
-              <FieldError id="message-error">
-                {errors.message.message}
-              </FieldError>
-            )}
           </FieldGroup>
 
           <SubmitButton type="submit" disabled={isSubmitting}>
