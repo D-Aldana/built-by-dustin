@@ -1,5 +1,10 @@
 export const metadata = {
   title: "Wisdumb — Privacy Policy",
+  description:
+    "Privacy policy for Wisdumb, a daily quote app that generates humorous, pseudo-profound quotes. Explains what data is collected and how it's used.",
+  alternates: {
+    canonical: "https://www.builtbydustin.dev/privacy-policy",
+  },
 }
 
 export default function PrivacyPolicy() {

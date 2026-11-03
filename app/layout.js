@@ -27,8 +27,8 @@ export const metadata = {
   title: "Dustin Aldana | Full-Stack Developer",
   description:
     "Dustin Aldana — Full-stack developer crafting thoughtful apps with personality. Explore my projects, skills, and story behind the code.",
-  alternatives: {
-    canonical: "https://www.builtbydustin.com",
+  alternates: {
+    canonical: "https://www.builtbydustin.dev",
   },
   icons: {
     icon: "/images/icon.png",
@@ -42,48 +42,57 @@ export const metadata = {
     "Node.js",
     "Portfolio",
     "Projects",
-    "Skills",
-    "About Me",
-    "Contact",
     "Software Engineer",
     "Frontend",
     "Backend",
-    "Full-Stack",
-    "Web Applications",
-    "Programming",
-    "Tech Enthusiast",
-    "Coding",
-    "Development",
     "Next.js",
-    "CSS",
-    "HTML",
     "TypeScript",
     "GitHub",
     "LinkedIn",
-    "Resume",
-    "Tech Portfolio",
-    "Python",
-    "Django",
-    "APIs",
-    "UI/UX",
-    "Responsive Design",
-    "Open Source",
-    "Tech Blog",
-    "Cloud Computing",
-    "AWS",
-    "Native",
-    "Mobile Development",
-    "React Native",
   ],
   openGraph: {
     title: "Dustin Aldana | Full-Stack Development",
     description:
       "Dustin Aldana — Full-stack developer crafting thoughtful apps with personality. Explore my projects, skills, and story behind the code.",
-    url: "https://www.builtbydustin.com",
+    url: "https://www.builtbydustin.dev",
     siteName: "Dustin Aldana Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://www.builtbydustin.dev/images/headshot.jpg",
+        width: 1200,
+        height: 900,
+        alt: "Dustin Aldana",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dustin Aldana | Full-Stack Development",
+    description:
+      "Dustin Aldana — Full-stack developer crafting thoughtful apps with personality. Explore my projects, skills, and story behind the code.",
+    images: ["https://www.builtbydustin.dev/images/headshot.jpg"],
+  },
+}
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Dustin Aldana",
+  url: "https://www.builtbydustin.dev",
+  jobTitle: "Full-Stack Developer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Victoria",
+    addressRegion: "BC",
+    addressCountry: "CA",
+  },
+  sameAs: [
+    "https://github.com/d-aldana",
+    "https://www.linkedin.com/in/dj-aldana/",
+    "https://www.instagram.com/dj_aldana32/",
+  ],
 }
 
 export default function RootLayout({ children }) {
@@ -91,6 +100,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head lang="en">
         <link rel="icon" href="/images/icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body
         className={`${fraunces.variable} ${montserrat.variable} ${bebas.variable}`}

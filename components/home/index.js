@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { ThemeProvider } from "@emotion/react"
 import { MotionConfig } from "framer-motion"
 import styled from "@emotion/styled"
@@ -36,15 +36,8 @@ export const Home = ({ posts = [], totalPosts = 0 }) => {
   const blogRef = useRef(null)
   const timelineRef = useRef(null)
   const contactRef = useRef(null)
-  const [mounted, setMounted] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const currentTheme = isDarkMode ? theme.dark : theme.light
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
 
   const scrollTo = (sectionRef) => () => {
     sectionRef.current?.scrollIntoView({

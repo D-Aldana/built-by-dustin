@@ -4,7 +4,7 @@ import { AppTheme } from "@/components/theme-provider"
 import { BlogPost } from "@/components/blog-post"
 import { getAllPosts, getPostMeta, getPostSource } from "@/util/blog"
 
-const SITE_URL = "https://www.builtbydustin.com"
+const SITE_URL = "https://www.builtbydustin.dev"
 
 export const dynamicParams = false
 
@@ -51,8 +51,26 @@ export default async function PostPage({ params }) {
   const posts = getAllPosts()
   const index = posts.findIndex((entry) => entry.slug === slug)
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    author: {
+      "@type": "Person",
+      name: "Dustin Aldana",
+      url: SITE_URL,
+    },
+    url: `${SITE_URL}/blog/${slug}`,
+  }
+
   return (
     <AppTheme>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <BlogPost
         post={post}
         next={index > 0 ? posts[index - 1] : null}

@@ -1,4 +1,5 @@
 import { forwardRef, useRef, useEffect, useState } from "react"
+import Link from "next/link"
 import styled from "@emotion/styled"
 import { motion } from "framer-motion"
 import { useTheme } from "@emotion/react"
@@ -558,6 +559,8 @@ export const ContactMe = forwardRef((props, ref) => {
 
       <Footer>
         &copy; {new Date().getFullYear()} Dustin Aldana. All rights reserved.
+        {" · "}
+        <Link href="/blog">Writing</Link>
       </Footer>
     </Container>
   )

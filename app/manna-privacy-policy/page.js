@@ -2,6 +2,11 @@ import MannaLegal from "../components/manna-legal/MannaLegal"
 
 export const metadata = {
   title: "Manna — Privacy Policy",
+  description:
+    "Manna's privacy policy: no accounts, no personal identifiers, AES-256 encrypted reflections, and exactly what data the app does and doesn't collect.",
+  alternates: {
+    canonical: "https://www.builtbydustin.dev/manna-privacy-policy",
+  },
 }
 
 export default function MannaPrivacyPolicy() {
