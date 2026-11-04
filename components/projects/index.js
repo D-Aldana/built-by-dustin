@@ -258,13 +258,7 @@ const personalProjects = [
     imgSrc: "/images/ka-media-logo.svg",
     imgFit: "contain",
     thumbBg: "#0B0B0A",
-    skills: [
-      "Next.js",
-      "React",
-      "Sanity",
-      "styled-components",
-      "Vercel",
-    ],
+    skills: ["Next.js", "React", "Sanity", "styled-components", "Vercel"],
     stats: [
       { num: "3", label: "Sports Covered" },
       { num: "1", label: "Story Player" },
