@@ -250,6 +250,26 @@ const personalProjects = [
       { num: "4", label: "Skills Scored" },
     ],
   },
+  {
+    title: "ka-media",
+    description:
+      "A portfolio site for a sports photographer and filmmaker, organizing game coverage into Instagram-story-style decks of photos and reels.",
+    link: process.env.NEXT_PUBLIC_KA_MEDIA_URL,
+    imgSrc: "/images/ka-media-logo.svg",
+    imgFit: "contain",
+    thumbBg: "#0B0B0A",
+    skills: [
+      "Next.js",
+      "React",
+      "Sanity",
+      "styled-components",
+      "Vercel",
+    ],
+    stats: [
+      { num: "3", label: "Sports Covered" },
+      { num: "1", label: "Story Player" },
+    ],
+  },
 ]
 
 const moreProjects = [
