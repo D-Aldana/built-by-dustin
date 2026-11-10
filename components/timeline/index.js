@@ -102,10 +102,6 @@ const TimelineCard = styled(SpotlightCard)`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  &:hover {
-    border-color: ${({ theme }) => theme.bronze};
-  }
   ${breakpoints.mobile} {
     width: 100%;
     transform: translateY(50px);

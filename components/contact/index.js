@@ -207,10 +207,6 @@ const ContactCard = styled(SpotlightCard)`
   background-color: ${({ theme }) => theme.surface};
   border: 1px solid ${({ theme }) => theme.line};
   border-radius: ${radius.md};
-  transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  &:hover {
-    border-color: ${({ theme }) => theme.bronze};
-  }
 `
 
 const IconWrapper = styled.div`
