@@ -172,11 +172,6 @@ const Stat = styled.div`
   padding: 0.75rem 0.5rem;
   border-radius: ${radius.md};
   border: 1px solid ${({ theme }) => theme.line};
-  transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-
-  &:hover {
-    border-color: ${({ theme }) => theme.bronze};
-  }
 `
 
 const StatNumber = styled.p`
