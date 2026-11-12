@@ -252,6 +252,7 @@ const personalProjects = [
     link: "/blog/building-blundr-to-improve-my-chess",
     linkText: "Read the story",
     imgSrc: "/images/blundr.png",
+    animatedSrc: "/videos/blundr-banner.mp4",
     imgFit: "cover",
     thumbBg: "#EEF2E8",
     skills: [
