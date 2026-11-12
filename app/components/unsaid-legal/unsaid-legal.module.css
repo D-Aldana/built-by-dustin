@@ -1,0 +1,227 @@
+.root {
+  /* unsaid light theme tokens (PRD §11.1) */
+  --bg: #f7f5ef;
+  --surface: #ffffff;
+  --text: #28382e;
+  --text-secondary: #5f6e63;
+  --accent: #416b59;
+  --accent-warm: #c68f70;
+  --border: #dfe3d9;
+
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  padding: clamp(2.5rem, 8vw, 6rem) 1.5rem clamp(3rem, 8vw, 6rem);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .root {
+    --bg: #1b2420;
+    --surface: #212b25;
+    --text: #ecefea;
+    --text-secondary: #a9b6ac;
+    --accent: #7fae95;
+    --accent-warm: #d9a17e;
+    --border: #324035;
+  }
+}
+
+.container {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+/* ---- Hero ---- */
+.hero {
+  position: relative;
+  text-align: center;
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.watermark {
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  width: clamp(14rem, 44vw, 19rem);
+  transform: translateX(-50%);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.crest {
+  position: relative;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 6.5vw, 3.1rem);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.meta {
+  position: relative;
+  z-index: 1;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  margin-top: 1.25rem;
+}
+
+.divider {
+  display: block;
+  width: 4rem;
+  height: 1px;
+  margin: 0 auto;
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+.lede {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text);
+  text-align: center;
+  max-width: 34rem;
+  margin: clamp(2rem, 5vw, 2.75rem) auto 0;
+}
+
+/* ---- Body ---- */
+.body {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.body h2 {
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3.6vw, 1.75rem);
+  line-height: 1.2;
+  margin: clamp(2.25rem, 5vw, 3rem) 0 0.9rem;
+}
+
+.body h2:first-child {
+  margin-top: 0;
+}
+
+.body p {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--text);
+  margin: 0 0 1.15rem;
+}
+
+.body ul,
+.body ol {
+  margin: 0 0 1.15rem;
+  padding-left: 1.35rem;
+}
+
+.body li {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  margin-bottom: 0.65rem;
+  padding-left: 0.35rem;
+}
+
+.body li::marker {
+  color: var(--accent-warm);
+}
+
+.body strong {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.body a {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.body a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.root a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- Closing contact card ---- */
+.contact {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding: clamp(1.75rem, 5vw, 2.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  text-align: center;
+}
+
+.contact h2 {
+  font-family: var(--font-dm-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 3.6vw, 1.6rem);
+  margin: 0 0 0.65rem;
+}
+
+.contact p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.contact a {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color 0.2s ease;
+}
+
+.contact a:hover {
+  border-bottom-color: var(--accent);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    animation: none;
+  }
+}
