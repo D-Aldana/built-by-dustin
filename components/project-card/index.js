@@ -66,11 +66,62 @@ const Thumb = styled.div`
   background-color: ${({ theme, bg }) => bg || theme.surfaceRaised};
   border-bottom: 1px solid ${({ theme }) => theme.line};
 
-  img {
+  img,
+  video {
     object-fit: ${({ fit }) => fit};
     object-position: center;
   }
+
+  video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
 `
+
+const isVideo = (src) => /\.(mp4|webm)$/i.test(src)
+
+/* The static image renders on the server and stays for reduced-motion users;
+   the animation only swaps in after mount, so it never blocks first paint. */
+const Banner = ({ title, imgSrc, animatedSrc }) => {
+  const [animate, setAnimate] = useState(false)
+
+  useEffect(() => {
+    if (animatedSrc && !prefersReducedMotion()) setAnimate(true)
+  }, [animatedSrc])
+
+  const alt = `${title} project artwork`
+  const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+
+  if (animate && isVideo(animatedSrc)) {
+    return (
+      <video
+        src={animatedSrc}
+        poster={imgSrc || undefined}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-label={alt}
+      />
+    )
+  }
+
+  const src = animate ? animatedSrc : imgSrc
+  if (!src) return null
+
+  // Next's optimizer would flatten a GIF to its first frame
+  return (
+    <Image
+      src={src}
+      fill
+      sizes={sizes}
+      unoptimized={/\.gif$/i.test(src)}
+      alt={alt}
+    />
+  )
+}
 
 const Body = styled.div`
   display: flex;
@@ -271,6 +322,7 @@ export const ProjectCard = forwardRef(
       appStoreUrl = null,
       playStoreUrl = null,
       imgSrc = null,
+      animatedSrc = null,
       imgFit = "contain",
       thumbBg = null,
       skills = [],
@@ -383,14 +435,7 @@ export const ProjectCard = forwardRef(
             aria-hidden={flipped}
           >
             <Thumb fit={imgFit} bg={thumbBg}>
-              {imgSrc && (
-                <Image
-                  src={imgSrc}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                  alt={`${title} project artwork`}
-                />
-              )}
+              <Banner title={title} imgSrc={imgSrc} animatedSrc={animatedSrc} />
             </Thumb>
             <Body>
               <Title>{title}</Title>

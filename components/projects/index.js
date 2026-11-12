@@ -218,6 +218,7 @@ const personalProjects = [
     description:
       "A private, distraction-free space for Christians to pour out what they're carrying and receive a single Scripture verse in response.",
     imgSrc: "/images/manna-banner.png",
+    animatedSrc: "/videos/manna-banner.mp4",
     imgFit: "cover",
     thumbBg: "#FFFCF5",
     skills: ["React Native", "Expo", "TypeScript", "Supabase", "Claude AI"],
