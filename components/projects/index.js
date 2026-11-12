@@ -234,6 +234,7 @@ const personalProjects = [
     description:
       "A portfolio site for a sports photographer and filmmaker, organizing game coverage into Instagram-story-style decks of photos and reels.",
     link: process.env.NEXT_PUBLIC_KA_MEDIA_URL,
+    linkText: "Check it out",
     imgSrc: "/images/ka-media-logo.svg",
     animatedSrc: "/videos/ka-media-banner.mp4",
     imgFit: "contain",
