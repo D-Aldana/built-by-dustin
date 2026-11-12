@@ -317,20 +317,20 @@ export const Projects = forwardRef((props, ref) => {
       <WaveBackground />
       <SectionHeading
         title="Featured Work"
-        subtitle="Platforms I've helped build for clients, and the things I build for myself"
+        subtitle="The things I build for myself, and platforms I've helped build for clients"
       />
-      <Group aria-labelledby="client-work">
-        <GroupLabel id="client-work">Client Work</GroupLabel>
-        <ProjectRow>
-          {clientProjects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
-        </ProjectRow>
-      </Group>
       <Group aria-labelledby="personal-projects">
         <GroupLabel id="personal-projects">Personal Projects</GroupLabel>
         <ProjectRow>
           {personalProjects.map((project) => (
+            <ProjectCard key={project.title} {...project} />
+          ))}
+        </ProjectRow>
+      </Group>
+      <Group aria-labelledby="client-work">
+        <GroupLabel id="client-work">Client Work</GroupLabel>
+        <ProjectRow>
+          {clientProjects.map((project) => (
             <ProjectCard key={project.title} {...project} />
           ))}
         </ProjectRow>
