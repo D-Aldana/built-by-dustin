@@ -14,12 +14,32 @@ import {
   CalendarIcon,
   InputIcon,
   RocketIcon,
+  WindTurbineIcon,
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { SectionHeading } from "@/components/section-heading"
 import { breakpoints, container, radius, elevation } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
+
+// Flip to true to show the job-search card at the top of the timeline
+const SHOW_OPEN_TO_WORK = false
+
+const openToWorkItem = {
+  type: "Open to Work",
+  title: "Looking for My Next Role",
+  company: "Full-Stack / Product Engineering",
+  date: "Aug 2026 - Present",
+  icon: WorkIcon,
+  bigIcon: RocketIcon,
+  bigIconProps: { fly: true },
+  desc: [
+    "Open to full-stack and product engineering roles, remote or on Vancouver Island",
+    "Building with React, Next.js, React Native, Python/Django, and AI-powered product features",
+    "Writing about the job search and shipping side projects while I look",
+    "If you are hiring or know a team that is, I would love to hear from you",
+  ],
+}
 
 const Container = styled.div`
   ${container};
@@ -206,19 +226,19 @@ export const Timeline = forwardRef((props, ref) => {
   const dateRefs = useRef([])
 
   const items = [
+    ...(SHOW_OPEN_TO_WORK ? [openToWorkItem] : []),
     {
-      type: "Open to Work",
-      title: "Looking for My Next Role",
-      company: "Full-Stack / Product Engineering",
-      date: "Aug 2026 - Present",
+      type: "Work",
+      title: "Software Developer",
+      company: "The Transition Accelerator",
+      date: "Nov 2026 - Present",
       icon: WorkIcon,
-      bigIcon: RocketIcon,
-      bigIconProps: { fly: true },
+      bigIcon: WindTurbineIcon,
+      bigIconProps: { spin: true },
       desc: [
-        "Open to full-stack and product engineering roles, remote or on Vancouver Island",
-        "Building with React, Next.js, React Native, Python/Django, and AI-powered product features",
-        "Writing about the job search and shipping side projects while I look",
-        "If you are hiring or know a team that is, I would love to hear from you",
+        "Building software that supports Canada's transition to a prosperous, net-zero future",
+        "Developing tools that turn transition research and analysis into credible, practical pathways",
+        "Collaborating with researchers, analysts, and partners across energy, industry, and policy",
       ],
     },
     {
